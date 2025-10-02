@@ -33,7 +33,7 @@ def main():
     parser = argparse.ArgumentParser(description="Combined Pocket Analysis Pipeline")
 
     # General inputs
-    parser.add_argument('-fl', dest='coord_file', type=str, default='protein_lig.gro', help='protein-ligand gro or pdb file')
+    parser.add_argument('-fl', dest='coord_file', type=str, default='protein_lig.gro', help='protein-ligand gro or pdb file or FPocket output with protein and pockets')
     parser.add_argument('-f', dest='xtc_file', type=str, default='mol.xtc', help='input xtc file')
     parser.add_argument('-s', dest='tpr_file', type=str, default='npt.tpr', help='input tpr file')
     parser.add_argument("-pocket_id", dest="pocket_id", type=int, default=0, help="Pocket ID (0 = ligand-based pocket)")
