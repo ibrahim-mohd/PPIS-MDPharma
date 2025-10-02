@@ -9,3 +9,6 @@ This repository provides codes and scripts to obtain protein-protein interaction
 1. MDAnalysis (https://www.mdanalysis.org/)
 2. MDtraj (https://www.mdtraj.org/1.9.8.dev0/index.html)
 3. networkx (https://networkx.org/)
+
+# Usage
+1. We assume you have an MD simulation trajectory of a protein-protein (apo form) complex in Gromacs format (we will soon extend for other packages). Make sure to center the protein i.e no breaking over the box edges due to periodic boundary conditions. Use ``gmx trjconv`` function to do so.
