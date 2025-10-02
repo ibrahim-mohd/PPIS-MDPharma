@@ -2,12 +2,13 @@
 # Technical University of Munich
 
 import argparse
-import numpy as np
-import MDAnalysis as mda
-from MDAnalysis.analysis.hydrogenbonds.hbond_analysis import HydrogenBondAnalysis
 from tqdm import tqdm
+import numpy as np
 import subprocess
 import pickle
+import MDAnalysis as mda
+from MDAnalysis.analysis.hydrogenbonds.hbond_analysis import HydrogenBondAnalysis
+
 
 # ---------------- Utility ---------------- #
 def skip_header_np_gentxt(filename):
