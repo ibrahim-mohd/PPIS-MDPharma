@@ -23,3 +23,6 @@ python 01_analyse_pharmacophore_features.py -fl $PWD/protein_out.pdb -f $PWD/mol
 Where, ``protein_out.pdb`` is the Fpocket output and we are intersted int eh pocket with resid (pocket ID) 1. Incase this file already has the ligand bound, no need to specify pocket ID. The flags are similar to gromacs conventions. Also, the default name of solvent resname is ``SOL`` and the solvent oxygen and hydrogen are `OW`, `HW1 HW2`. If that is not the case use extra flags to add the info. 
 
 3. Plot the above features and apply thresholds for feature selection.
+```bash
+python 02_plot_features.py -p $PWD/output_features.pkl -c $PWD/mol.gro -s $PWD/npt.tpr -ion_th 50
+```
