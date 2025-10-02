@@ -13,3 +13,6 @@ This repository provides codes and scripts to obtain protein-protein interaction
 
 # Usage
 1. We assume you have an MD simulation trajectory of a protein-protein complex (apo form)  in Gromacs format (we will soon extend for other packages). Make sure to center the protein i.e no breaking over the box edges due to periodic boundary conditions. Use ``gmx trjconv`` function to do so.
+2. We first analyze the trajectory for different pharmacophore features: we calculate the Hydrogen bond donor acceptor, solvation free energies of pocket residues and ion binding sites. To do so we need the informatino about the **binding site pocket**. There are two possible options <br>
+       (1) You may have an already known ligand in which case you create a ``PDB`` or ``GRO`` file of the whole complex with the ligand in the bound or <br>
+        (2) You use **Fpocket to detect the pockets** in which case you need the Fpocket output which has typically the whole complex and the detected pockets. In this case you also have to specify the pocket ID i.e the residue ID of the pocket at the interface. 
