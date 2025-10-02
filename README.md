@@ -5,6 +5,7 @@ This repository provides codes and scripts to obtain protein-protein interaction
 1. Pharmer (Executable at: https://sourceforge.net/projects/pharmer/files/)
 2. Gromacs (https://manual.gromacs.org/documentation/)
 3. AmberTools (For post processing e.g to obtain ligand parameters, conda version is fine: https://ambermd.org/GetAmber.php)
+4. Fpocket (https://github.com/Discngine/fpocket) incase you do not know the binding pocket or do  not have a structure file of the protein-protein complex with a known bound ligand.
 ## Python packages
 1. MDAnalysis (https://www.mdanalysis.org/)
 2. MDtraj (https://www.mdtraj.org/1.9.8.dev0/index.html)
