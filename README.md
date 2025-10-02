@@ -16,4 +16,7 @@ This repository provides codes and scripts to obtain protein-protein interaction
 2. We first analyze the trajectory for different pharmacophore features: we calculate the Hydrogen bond donor acceptor, solvation free energies of pocket residues and ion binding sites. To do so we need the informatino about the **binding site pocket**. There are two possible options <br>
 
    (1) You may have an already known ligand in which case you create a ``PDB`` or ``GRO`` file of the whole complex with the ligand in the bound state. You can even dock a ligand and create such a file, the ligand is not important, it should be in the pocket.  <br>
-     (2) You use **Fpocket to detect the pockets** in which case you need the Fpocket output which has typically the whole complex and the detected pockets. In this case you also have to specify the pocket ID i.e the residue ID of the pocket at the interface. 
+     (2) You use **Fpocket to detect the pockets** in which case you need the Fpocket output which has typically the whole complex and the detected pockets. In this case you also have to specify the pocket ID i.e the residue ID of the pocket at the interface.
+```bash
+python /mnt/second/pharmacophore-scripts/01_analyse_pharmacophore_features.py -fl $PWD/protein_out.pdb -f $PWD/mol.xtc -s $PWD/npt.tpr -pocket_id 1 -b 20000 -skip 10 -o all.pkl -hsol_name  "HW1 HW2" -osol_name "OW" -sol_resname "SOL"
+```
