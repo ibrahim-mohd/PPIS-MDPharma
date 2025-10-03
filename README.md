@@ -5,7 +5,7 @@ This repository provides codes and scripts to obtain protein-protein interaction
 ## Software Packages
 
 1. **[Pharmer](https://sourceforge.net/projects/pharmer/files/)** – Executable available via SourceForge.
-2. **[GROMACS](https://manual.gromacs.org/documentation/)** – We are mainly using the ``gmx sasa`` routine for solvation free energy per residue.
+2. **[GROMACS](https://manual.gromacs.org/documentation/)** – We are mainly using the ``gmx sasa`` routine for calculating the solvation free energy per residue.
 3. **[AmberTools](https://ambermd.org/GetAmber.php)** – For post-processing (e.g., obtaining ligand parameters). The Conda version works fine.
 4. **[Fpocket](https://github.com/Discngine/fpocket)** – Use this if you do not know the binding pocket or lack a structure file of the protein–protein complex with a known bound ligand.
 
