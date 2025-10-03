@@ -4,17 +4,16 @@ This repository provides codes and scripts to obtain protein-protein interaction
 # Dependencies
 ## Software Packages
 
-1. **[Pharmer](https://sourceforge.net/projects/pharmer/files/)** – Executable available via SourceForge.
+1. **[Pharmer](https://sourceforge.net/projects/pharmer/files/)** – For pharmacophore search and database creation. Executable available via SourceForge.
 2. **[GROMACS](https://manual.gromacs.org/documentation/)** – We are mainly using the ``gmx sasa`` routine for calculating the solvation free energy per residue.
 3. **[AmberTools](https://ambermd.org/GetAmber.php)** – For post-processing (e.g., obtaining ligand parameters). The Conda version works fine.
 4. **[Fpocket](https://github.com/Discngine/fpocket)** – Use this if you do not know the binding pocket or lack a structure file of the protein–protein complex with a known bound ligand.
 
 ## Python Packages
 
-1. **[MDAnalysis](https://www.mdanalysis.org/)** – Python library for analyzing molecular dynamics trajectories.
-2. **[MDTraj](https://www.mdtraj.org/1.9.8.dev0/index.html)** – For trajectory analysis and manipulation.
-3. **[NetworkX](https://networkx.org/)** – For creating, analyzing, and visualizing complex networks.
-
+1. **[MDAnalysis](https://www.mdanalysis.org/)** – For all analysis.
+2. **[MDTraj](https://www.mdtraj.org/1.9.8.dev0/index.html)** – For buried surface area analysis function.
+3. **[NetworkX](https://networkx.org/)** – For visualzing and manipulating pharamcophore graphs
 
 # Usage
 1. We assume you have an MD simulation trajectory of a protein-protein complex (apo form)  in Gromacs format (we will soon extend for other packages). Make sure to center the protein i.e no breaking over the box edges due to periodic boundary conditions. Use ``gmx trjconv`` function to do so.
