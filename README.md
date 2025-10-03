@@ -24,5 +24,5 @@ Where, ``protein_out.pdb`` is the Fpocket output and we are intersted int eh poc
 
 3. Plot the above features and apply thresholds for feature selection.
 ```bash
-python 02_plot_features.py -p $PWD/output_features.pkl -c $PWD/mol.gro -s $PWD/npt.tpr -ion_th 50
+python 02_feature_selection_plot.py -p $PWD/output_features.pkl -c $PWD/mol.gro -s $PWD/npt.tpr -ion_th 50
 ```
