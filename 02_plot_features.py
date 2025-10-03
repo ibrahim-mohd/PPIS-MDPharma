@@ -1,3 +1,6 @@
+# Written by Mohd Ibrahim
+# Technical University of Munich
+
 import argparse
 import pickle
 import numpy as np
