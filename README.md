@@ -22,7 +22,7 @@ Before proceeding, ensure you have the following files prepared:
 
 1. **Trajectory Files**  
    - The `.xtc` and `.tpr` files from the MD trajectory. The complex should be whole with no jumping across the box boundary before usage e.g you can use ``gmx trjconv`` with ``pbc mol`` option.
-2. **Structure File**  
+2. **Structure File for Pocket Identification**  
    You need a `.pdb` or `.gro` file to identify the binding pocket at the interface. There are two possible approaches:
 
    **Option 1 — Existing Complex**  
