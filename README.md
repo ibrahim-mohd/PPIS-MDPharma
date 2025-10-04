@@ -21,7 +21,7 @@ This repository provides codes and scripts to obtain protein-protein interaction
 Before proceeding, ensure you have the following files prepared:
 
 1. **Trajectory Files**  
-   - The `.xtc` and `.tpr` files from the MD trajectory
+   - The `.xtc` and `.tpr` files from the MD trajectory. The complex should be whole with no jumping across the box boundary before usage e.g you can use ``gmx trjconv`` with ``pbc mol`` option.
 2. **Structure File**  
    You need a `.pdb` or `.gro` file to identify the binding pocket at the interface. There are two possible approaches:
 
