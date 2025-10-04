@@ -55,6 +55,7 @@ python 02_feature_selection_plot.py -p $PWD/output_features.pkl -c $PWD/mol.gro 
 ```
 
 3. **Pharmacophore model generation**
+   
    Generate pharmacophores using the above obtained thresholds
    ```bash
    python ...
