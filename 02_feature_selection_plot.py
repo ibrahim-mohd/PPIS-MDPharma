@@ -1,6 +1,3 @@
-# Written by Mohd Ibrahim
-# Technical University of Munich
-
 import argparse
 import pickle
 import numpy as np
@@ -19,10 +16,10 @@ def parse_args():
     
     ##################### Thresholds
     
-    parser.add_argument('-acceptor', dest='acceptor_threshold', type=float, default=40, help='acceptor threshold')
-    parser.add_argument('-donor', dest='donor_threshold', type=float, default=40, help='acceptor threshold')
-    parser.add_argument('-dG_sol', dest='dG_threshold', type=float, default=0.4, help='ΔG threshold,')
-    parser.add_argument('-ion', dest='ion_threshold', type=float, default=100, help='difference between number of cations and anions')
+    parser.add_argument('-acceptor_th', dest='acceptor_threshold', type=float, default=40, help='acceptor threshold')
+    parser.add_argument('-donor_th', dest='donor_threshold', type=float, default=40, help='acceptor threshold')
+    parser.add_argument('-dG_th', dest='dG_threshold', type=float, default=0.4, help='ΔG threshold,')
+    parser.add_argument('-ion_th', dest='ion_threshold', type=float, default=40, help='difference between number of cations and anions')
 
     # Figure options
     parser.add_argument('-o',dest='out_file', type=str, default="features.png", help="Output image file (e.g. plot.png). If None, shows figure.")
@@ -146,7 +143,7 @@ def main():
 
     for (key_cat, val_cat), (key_an, val_an) in zip(data['ions']['cation'].items(),
                                                     data['ions']['anion'].items()):
-        if val_cat['count'] < 10 and val_an['count'] < 10:
+        if val_cat['count'] < 1 and val_an['count'] < 1:
             continue
 
         if int(key_cat) in Index_frag1:

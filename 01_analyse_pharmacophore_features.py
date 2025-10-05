@@ -1,6 +1,3 @@
-# Written by Mohd Ibrahim
-# Technical University of Munich
-
 import argparse
 from tqdm import tqdm
 import numpy as np
@@ -199,6 +196,16 @@ def main():
             index = ion_sites.indices[i_res]
             residue_dict_cl[str(index)]['count'] += 1
 
+    
+    # Normalize the frame to percentage of total frame for easy interpretation
+
+    for key in residue_dict_cl.keys(): 
+        residue_dict_cl [key] ['count'] = residue_dict_cl [key] ['count']*100/n_frames  
+    
+    for key in residue_dict_na.keys(): 
+        residue_dict_na [key] ['count'] = residue_dict_na [key] ['count']*100/n_frames
+        
+    
     ion_dict = dict(cation=residue_dict_na, anion=residue_dict_cl)
 
     # ---------------- Final Output ---------------- #
