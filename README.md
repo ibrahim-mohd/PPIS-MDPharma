@@ -72,3 +72,4 @@ mkdir ./pharma
    python 04_generate_sub_pharmacophores.py -j master_pharmacophore.json -min_node 4 -top 30 -ntop_limit 50 -o ./pharma
    ```
 5. **Perform pharmacophore screening**
+We have everything we need to perform the screening in a local database. Before proceeding make sure to have a local **pharmer compatible**database ready. Refer to the database creation section for more information
