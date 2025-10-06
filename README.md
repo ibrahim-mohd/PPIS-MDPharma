@@ -63,8 +63,11 @@ python 02_feature_selection_plot.py -p all_features.pkl -c $PWD/mol.gro -s $PWD/
 
 4. **Sub-pharmacophore generation (Subsets of master pharmacophore)**
 
-   Generate subsets of master pharmacophore as:
+   Generate subsets of master pharmacophore as: first create an output directory named (let's say) ``pharma``
 
+```bash
+mkdir ./pharma
+```
    ``` bash
-   python
+   python /mnt/second/pharmacophore-scripts/04_generate_sub_pharmacophores.py -j master_pharmacophore.json -min_node 4 -top 30 -o ./pharma
    ```
