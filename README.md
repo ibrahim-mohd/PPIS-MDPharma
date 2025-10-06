@@ -54,7 +54,7 @@ Where, ``protein_out.pdb`` is the Fpocket output and we are intersted int eh poc
 python 02_feature_selection_plot.py -p all_features.pkl -c $PWD/mol.gro -s $PWD/npt.tpr -acceptor_th 30 -donor_th 40 -dG_th 0.5 -ion_th 30
 ```
 
-3. **Pharmacophore model generation**
+3. **Master pharmacophore model generation**
    
    Generate pharmacophores using the above obtained thresholds
    ```bash
