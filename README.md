@@ -15,6 +15,7 @@ This repository provides codes and scripts to obtain protein-protein interaction
 2. **[MDTraj](https://www.mdtraj.org/1.9.8.dev0/index.html)** – For buried surface area analysis function.
 3. **[NetworkX](https://networkx.org/)** – For visualzing and manipulating pharamcophore graphs
 # Create local database of ligands with Pharmer.
+Once you obtain the Pharmer executable. Put all the ``SDF`` files of your ligand in a directory lets call it ```SDF-ligands```
 
 # Usage
  ## Files required
