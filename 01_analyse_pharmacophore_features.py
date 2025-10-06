@@ -48,7 +48,7 @@ def main():
     parser.add_argument('-sol_resname', dest='sol_resname', type=str, default='SOL', help='resname of water molecules')
     
     # Output
-    parser.add_argument('-o', dest='pkl_object', type=str, default='combined_analysis.pkl', help='output pickle object')
+    parser.add_argument('-o', dest='pkl_object', type=str, default='all_features.pkl', help='output pickle object')
 
     args = parser.parse_args()
 
