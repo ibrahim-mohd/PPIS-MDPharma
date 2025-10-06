@@ -71,3 +71,4 @@ mkdir ./pharma
    ``` bash
    python 04_generate_sub_pharmacophores.py -j master_pharmacophore.json -min_node 4 -top 30 -ntop_limit 50 -o ./pharma
    ```
+5. **Perform pharmacophore screening**
