@@ -58,5 +58,5 @@ python 02_feature_selection_plot.py -p all_features.pkl -c $PWD/mol.gro -s $PWD/
    
    Generate pharmacophores using the above obtained thresholds
    ```bash
-   python ...
+   python 03_generate_master_pharmacophore.py -p all.pkl -c $PWD/mol.gro -s $PWD/npt.tpr -acceptor_th 30 -donor_th 40 -dG_th 0.5 -ion_th 30 -o master_pharmacophore.json
    ```
