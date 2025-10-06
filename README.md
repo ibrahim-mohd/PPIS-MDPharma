@@ -15,8 +15,16 @@ This repository provides codes and scripts to obtain protein-protein interaction
 2. **[MDTraj](https://www.mdtraj.org/1.9.8.dev0/index.html)** – For buried surface area analysis function.
 3. **[NetworkX](https://networkx.org/)** – For visualzing and manipulating pharamcophore graphs
 # Create local database of ligands with Pharmer.
-Once you obtain the Pharmer executable. Put all the ``SDF`` files of your ligand in a directory lets call it ```SDF-ligands```
+Refer to the Pharmer manual (there seems to be just a README file) on the link provided above. But in short: 
 
+1. Obtain/install the Pharmer executable.
+2. Download the ligands in ``MOL2`` or ``SDF`` format.
+3. Concatenate all the ligands into a single file with the corresponding format i.e ``SDF`` or ``MOL2``. Lets say you named the file as ``all_ligands.sdf``
+4. Run the following command. Note that pharmer will show an error if the directory ``LocalDatabase`` or whatever you wanna call it in the command below already exists.  
+``` bash
+pharmer.static dbcreate -dbdir=LocalDatabase -in all_ligands.sdf
+```
+You have a Pharmer compatible local database.
 # Usage
  ## Files required
 
