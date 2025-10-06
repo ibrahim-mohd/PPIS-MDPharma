@@ -69,5 +69,5 @@ python 02_feature_selection_plot.py -p all_features.pkl -c $PWD/mol.gro -s $PWD/
 mkdir ./pharma
 ```
    ``` bash
-   python /mnt/second/pharmacophore-scripts/04_generate_sub_pharmacophores.py -j master_pharmacophore.json -min_node 4 -top 30 -o ./pharma
+   python 04_generate_sub_pharmacophores.py -j master_pharmacophore.json -min_node 4 -top 30 -o ./pharma
    ```
