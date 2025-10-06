@@ -54,7 +54,7 @@ def main():
     # ---------------- Figure Setup ---------------- #
 
     fig = plt.figure(figsize=figsize)
-    gs = fig.add_gridspec(nrows=4, ncols=1, hspace=0.6)
+    gs = fig.add_gridspec(nrows=4, ncols=1, hspace=0.8)
     
     ax1 = fig.add_subplot(gs[0, 0])  # ΔG panel
     ax2 = fig.add_subplot(gs[1, 0])  # H-bond acceptors
@@ -90,7 +90,7 @@ def main():
 
     ax1.set_ylabel(r"$\Delta G_{sol}$ [kJ/mol]", fontsize=14)
     ax1.legend(fontsize=12)
-
+    ax1.set_title ("Hydrophobic/aromatic sites (+ve solvation free energy)")
     # =====================================================
     # Panel 2: H-bond Acceptors
     # =====================================================
@@ -112,7 +112,7 @@ def main():
     ax2.set_ylabel("H-bond/(frame*sasa)", fontsize=14)
     ax2.hlines(donor_threshold, 0, len(Ac_name1 + Ac_name2), lw=2, ls='--', color="b", alpha=0.5)
     ax2.legend(fontsize=12)
-
+    ax2.set_title ("Donor pharmacophore site (i.e acceptors from the protein)")
     # =====================================================
     # Panel 3: H-bond Donors
     # =====================================================
@@ -131,9 +131,10 @@ def main():
     ax3.bar(x2, Do2, label="Chain B", edgecolor="k", lw=1, width=0.4, fc='tab:red')
 
     ax3.set_xticks(np.concatenate([x1, x2]), Do_name1 + Do_name2, rotation=90)
-    ax3.set_ylabel("Normed Count", fontsize=14)
+    ax3.set_ylabel("H-bond/(frame*sasa)", fontsize=14)
     ax3.hlines(acceptor_threshold, 0, len(Do_name1 + Do_name2), lw=2, ls='--', color="b", alpha=0.5)
     ax3.legend(fontsize=12)
+    ax3.set_title ("Acceptors pharmacophore site (i.e donors from the protein)")
 
     # =====================================================
     # Panel 4: Ion Sites
@@ -162,8 +163,8 @@ def main():
     ax4.bar(x2 + 0.33, An2, width=0.3, label="Cl$^-$, Chain B", edgecolor="k", fc=(1, 0, 0, 0.5))
 
     ax4.set_xticks(np.concatenate([x1, x2]) + 0.15, An_name1 + An_name2, rotation=90)
-    ax4.set_ylabel(r"$\sum_i n(t_i)$", fontsize=16)
-    
+    ax4.set_ylabel("Ion bound frame %age", fontsize=16)
+    ax4.set_title ("Positive/negative ion binding sites")
     # -------------------- Threshold -------------------------
     index_1 = np.where ( np.abs (np.array (Cat1) - np.array (An1)) >= ion_threshold) [0]
     index_2 = np.where ( np.abs (np.array (Cat2) - np.array (An2)) >= ion_threshold) [0]
