@@ -1,5 +1,3 @@
-# Written by Mohd Ibrahim
-# Technincal University of Munich
 import pickle
 import json
 import argparse
@@ -25,13 +23,13 @@ def parse_args():
                         help='Pickle file with solvation energy information')
 
     # Thresholds
-    parser.add_argument('-th_sol', dest='G_solv_threshold', type=float, default=0.40,
+    parser.add_argument('-dG_th', dest='G_solv_threshold', type=float, default=0.40,
                         help='Threshold for solvation free energy')
-    parser.add_argument('-th_ha', dest='acceptor_threshold', type=float, default=40.0,
+    parser.add_argument('-acceptor_th', dest='acceptor_threshold', type=float, default=40.0,
                         help='Threshold for hydrogen acceptor')
-    parser.add_argument('-th_hd', dest='donor_threshold', type=float, default=40.0,
+    parser.add_argument('-donor_th', dest='donor_threshold', type=float, default=40.0,
                         help='Threshold for hydrogen donor')
-    parser.add_argument('-th_ion', dest='threshold_ion_difference', type=float, default=100,
+    parser.add_argument('-ion_th', dest='threshold_ion_difference', type=float, default=100,
                         help='Threshold for |N_anion - N_cation|')
 
     # Output file
@@ -147,8 +145,8 @@ def main():
 
     # Thresholds
     G_solv_threshold = args.G_solv_threshold
-    acceptor_threshold = args.acceptor_threshold
-    donor_threshold = args.donor_threshold
+    acceptor_threshold = args.donor_threshold # intentionally reversed, i.e donor threshold used as acceptor threshold, since protein donor corresponds to an acceptor pharmacophore
+    donor_threshold = args.acceptor_threshold # same as above. Also to keep compatible with feature selection file where we show the pharmacophroe information
     threshold_ion_difference = args.threshold_ion_difference
 
     # Limits
