@@ -1,3 +1,5 @@
+# Written by Mohd Ibrahim
+# Technical University of Munich
 import os
 import math
 import json
@@ -7,7 +9,6 @@ from tqdm import tqdm
 import argparse
 import numpy as np
 import networkx as nx
-import MDAnalysis as mda
 import warnings
 
 warnings.filterwarnings("ignore")
