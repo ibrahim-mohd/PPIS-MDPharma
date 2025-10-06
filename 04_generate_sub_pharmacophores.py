@@ -34,7 +34,7 @@ def parse_args():
     parser.add_argument('-top', dest='top_percentage', type=int, default=20,
                         help='Percentage of top-ranked models to keep')
     parser.add_argument('-ntop_limit', dest='ntop_limit', type=int, default=20,
-                        help='If the total number of pharmacophore is less or equal to this limit, then the top percentage value and instead writes this many sub-pharmacophores')
+                        help='If the total number of pharmacophore is less or equal to this limit for a given subset, then the top percentage value is ignored, and instead writes this many sub-pharmacophores')
     parser.add_argument('-o', dest='out_path', type=str, default='./',
                         help='Output path for JSON files')
     return parser.parse_args()
