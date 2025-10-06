@@ -43,7 +43,7 @@ Before proceeding, ensure you have the following files prepared:
 
 1. **Analyze pharamcophore features**
 ```bash
-python 01_analyse_pharmacophore_features.py -fl $PWD/protein_out.pdb -f $PWD/mol.xtc -s $PWD/npt.tpr -pocket_id 1 -b 20000 -skip 10 -o output_features.pkl
+python 01_analyse_pharmacophore_features.py -fl $PWD/protein_out.pdb -f $PWD/mol.xtc -s $PWD/npt.tpr -pocket_id 1 -b 20000 -skip 10 -o all_features.pkl
 ```
 Where, ``protein_out.pdb`` is the Fpocket output and we are intersted int eh pocket with resid (pocket ID) 1. Incase this file already has the ligand bound, no need to specify pocket ID. The flags are similar to gromacs conventions. Also, the default name of solvent resname is ``SOL`` and the solvent oxygen and hydrogen are `OW`, `HW1 HW2`. If that is not the case use extra flags to add the info. 
 
@@ -51,7 +51,7 @@ Where, ``protein_out.pdb`` is the Fpocket output and we are intersted int eh poc
 
    Plot the above features and apply thresholds to select features. It is best to keep number of features less than 10.
 ```bash
-python 02_feature_selection_plot.py -p output_features.pkl -c $PWD/mol.gro -s $PWD/npt.tpr -acceptor_th 30 -donor_th 40 -dG_th 0.5 -ion_th 30
+python 02_feature_selection_plot.py -p all_features.pkl -c $PWD/mol.gro -s $PWD/npt.tpr -acceptor_th 30 -donor_th 40 -dG_th 0.5 -ion_th 30
 ```
 
 3. **Pharmacophore model generation**
