@@ -62,7 +62,7 @@ def parse_arguments():
     parser.add_argument("--database", "-d", action="append", type=Path, help="Database path (can be used multiple times)")
 
     parser.add_argument("--max_hits","-max", type=int, default=10000, 
-                        help="Stop screening when total hits reach this number, it  may be much higher than this limit , read the code")
+                        help="Stop screening when total hits reach this number, it  may be much higher than this limit , read comments at line 380 in the code")
  
     parser.add_argument("--verbose", "-v", action="store_true",
                        help="Enable verbose output")
