@@ -1,5 +1,6 @@
 # Written by Mohd Ibrahim
 # Technical University of Munich
+
 """
 Parallel pharmacophore screening using Pharmer.
 Searches multiple pharmacophore models against compound databases.
@@ -138,7 +139,7 @@ def validate_environment(input_dir, output_dir, database_paths, pharmer_exe_path
 def run_pharmer(input_file, output_file, database_path, pharmer_exe_path):
 
     # This pharmer command
-    # pharmer -dbdir=LocalDatabase -in input.json -out ouput.sdf
+    # pharmer dbsearch -dbdir=LocalDatabase -in input.json -out ouput.sdf
     
     cmd = [
         str(pharmer_exe_path),
@@ -376,11 +377,13 @@ def main():
             
             total_hits += model_data["number_of_hits"]
 
-            # if total hits is more than the max hits break
-            # Note that here it is intentionally designed to search the whole set of graphs
-            # for a given pharmacophore if the MAX_HITS limit is not reached for the preceding pharmacophore
-            # if ou set MAX_HITS to 1000 and is not reached lets say for n7, then it will search for whole of n6
-            # which means you may end up with 100000 ligands or more 
+            # The --max_hits value is a soft global limit checked only *between* pharmacophore models.
+            #As a result, the total number of hits may exceed the specified MAX_HITS threshold, 
+            #sometimes by a large margin. For example:
+            #If MAX_HITS=10000, and pharmacophore n7 produces 3000 hits,
+            #screening will continue with n6. If n6 produces 20000 hits,
+            #the final total will be 23000 — exceeding the limit by design.             
+            
             if total_hits >= MAX_HITS:
                 logging.info(f"Reached MAX_HITS limit ({MAX_HITS}). Stopping further screening.")
                 break
