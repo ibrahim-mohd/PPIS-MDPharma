@@ -1,6 +1,5 @@
 # Written by Mohd Ibrahim
 # Technical University of Munich
-#!/usr/bin/env python3
 """
 Parallel pharmacophore screening using Pharmer.
 Searches multiple pharmacophore models against compound databases.
