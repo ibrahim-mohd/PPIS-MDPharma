@@ -89,7 +89,7 @@ We have everything we need to perform the screening in a local database. Before 
 ```bash
 python 05_perform_screening.py -d $database_path -i $PWD/pharma -o $PWD/search-output -max 10000 -np 4
 ```
-Where, we provided the path to database, the pharmacophores graphs path (i.e the folder with n* like folder e.g n8 n7 n3 etc), the output folder (it creates if not there) and the number of concurrent workers (parallel threads).
+Where, we provided the path to database, the pharmacophores graphs path (i.e the folder with n* like folder e.g n8 n7 n3 etc), the output folder (it creates if not there) and the number of concurrent workers (parallel threads). Apart from the hits, a screening summary file ``screening_summary.dat`` is also produced.
 
 6. **Scoring hits by calculating buried surface area**
  
