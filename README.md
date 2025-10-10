@@ -1,20 +1,20 @@
-# Introduction
+## Introduction
 This repository provides codes and scripts to obtain protein-protein interaction stabilizers as described in our paper "". In nut-shell, we generate pharmacophore models from MD simulations and search for corresponding ligands that satisfy the pharmacophores in a local data. The scripts here automates the whole procedure.
 
-# Dependencies
-## Software Packages
+## Dependencies
+#### Software Packages
 
 1. **[Pharmer](https://sourceforge.net/projects/pharmer/files/)** – For pharmacophore search and database creation. Executable available via SourceForge.
 2. **[GROMACS](https://manual.gromacs.org/documentation/)** – We are mainly using the ``gmx sasa`` routine for calculating the solvation free energy per residue.
 3. **[AmberTools](https://ambermd.org/GetAmber.php)** – For post-processing (e.g., obtaining ligand parameters). The Conda version works fine.
-4. **[Fpocket](https://github.com/Discngine/fpocket)** – Use this if you do not know the binding pocket or lack a structure file of the protein–protein complex with a known bound ligand.
+4. **[Fpocket](https://github.com/Discngine/fpdocket)** – Use this if you do not know the binding pocket or lack a structure file of the protein–protein complex with a known bound ligand.
 
-## Python Packages
+#### Python Packages
 
 1. **[MDAnalysis](https://www.mdanalysis.org/)** – For all analysis.
 2. **[MDTraj](https://www.mdtraj.org/1.9.8.dev0/index.html)** – For buried surface area analysis function.
 3. **[NetworkX](https://networkx.org/)** – For visualzing and manipulating pharamcophore graphs
-# Create local database of ligands with Pharmer.
+## Create local database of ligands with Pharmer.
 Refer to the [Pharmer manual](https://sourceforge.net/p/pharmer/code/HEAD/tree/)  (there seems to be just a README file). But in short: 
 
 1. Obtain/install the Pharmer executable.
@@ -28,8 +28,8 @@ You have a Pharmer compatible local database. We also provide two different data
 1. Random 10 Million compound database (**SDF** format), obtained from random sampling of 300 Million compouds from ZINC20. 
 2. A curated database of 10 Million compounds (**MOL2** format) selected based on various medicinal properties. Thanks to Dr. Luis Vollmers (TU Munich) for providing the database. 
 
-# Usage
- ## Files required
+## Usage
+ #### Files required
 
 Before proceeding, ensure you have the following files prepared:
 
@@ -52,7 +52,7 @@ Before proceeding, ensure you have the following files prepared:
    - Select a representative frame from your trajectory to use for **pharmacophore model generation**.  
    - The pharmacophore hits will correspond to this specific configuration.
 
-## Running the commands
+#### Running the commands
 
 1. **Analyze pharamcophore features**
 ```bash
@@ -87,7 +87,7 @@ mkdir ./pharma
 
 5. **Perform pharmacophore screening**
    
-We have everything we need to perform the screening in a local database. Before proceeding make sure to have a local **pharmer compatible** database ready. Refer to the [Database creation section](#Create-local-database-of-ligands-with-pharmer). 
+We have everything we need to perform the screening in a local database. Before proceeding make sure to have a local **pharmer compatible** database ready. Refer to the [Database creation section](##Create-local-database-of-ligands-with-pharmer). 
 
 ```bash
 python 05_perform_screening.py -d $database_path -i $PWD/pharma -o $PWD/search-output -max 10000 -np 4
