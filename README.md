@@ -24,7 +24,7 @@ Refer to the [Pharmer manual](https://sourceforge.net/p/pharmer/code/HEAD/tree/)
 ``` bash
 pharmer.static dbcreate -dbdir=LocalDatabase -in all_ligands.sdf
 ```
-You have a Pharmer compatible local database. We also **provide two different datasets** of ligands each containing 10 million compounds, one can simply unzip it and use the above command to create a Pharmer compatabile database. The two databases are: 
+You have a Pharmer compatible local database. We also **provide two different datasets** of ligands each containing **10 million** compounds, one can simply unzip it and use the above command to create a Pharmer compatabile database. The two databases are: 
 1. Random 10 Million compound database (**SDF** format), obtained from random sampling of 300 Million compouds from ZINC20. 
 2. A curated database of 10 Million compounds (**MOL2** format) selected based on various medicinal properties. Thanks to Dr. Luis Vollmers (TU Munich) for providing the database. 
 
