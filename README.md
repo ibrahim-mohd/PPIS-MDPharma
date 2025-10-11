@@ -100,4 +100,5 @@ Where, we provided the path to database, the pharmacophores graphs path (i.e the
 python 06_score_hits.py -sdf $sdf_path -s $tpr_file -c $gro_file -o ligand_scores.pkl
 ```
 Where $sdf_path is the path to pharmer output ``SDF`` files. For different pharmacophore model e.g n7, n6 or n5, one creates seperate scoring files. The code will go through all the ``.sdf`` file in the folder. The ``TPR`` and ``GRO`` files must also be provided with the ``GRO`` file being the MD frame for which the pharmacophores hits were obtained.
+
 7. **Select top hits across all models and prepare for simulation**
