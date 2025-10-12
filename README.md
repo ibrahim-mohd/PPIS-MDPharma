@@ -7,7 +7,7 @@ This repository provides codes and scripts to obtain protein-protein interaction
 1. **[Pharmer](https://sourceforge.net/projects/pharmer/files/)** – For pharmacophore search and database creation. Executable available via SourceForge.
 2. **[GROMACS](https://manual.gromacs.org/documentation/)** – We are mainly using the ``gmx sasa`` routine for calculating the solvation free energy per residue.
 3. **[AmberTools](https://ambermd.org/GetAmber.php)** – For post-processing (e.g., obtaining ligand parameters). The Conda version works fine.
-4. **[Fpocket](https://github.com/Discngine/fpdocket)** – Use this if you do not know the binding pocket or lack a structure file of the protein–protein complex with a known bound ligand.
+4. **[Fpocket](https://github.com/Discngine/fpocket)** – Use this if you do not know the binding pocket or lack a structure file of the protein–protein complex with a known bound ligand.
 5. **[Openbabel](https://openbabel.org/docs/Installation/install.html#install-binaries)** – This is used near the end to obtain the total ligand charges which is required to simulate the top ligands
 
 #### Python Packages
