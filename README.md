@@ -85,7 +85,7 @@ mkdir ./pharma
    ``` bash
    python 04_generate_sub_pharmacophores.py -j master_pharmacophore.json -min_node 4 -top 30 -ntop_limit 50 -o ./pharma
    ```
-Where we either generate the ``max (30 %, 50)`` number of graphs/models
+Where we generate ``max (30 %, 50)`` number of graphs/models
 
 5. **Perform pharmacophore screening**
    
