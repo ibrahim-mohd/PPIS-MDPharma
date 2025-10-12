@@ -14,7 +14,7 @@ This repository provides codes and scripts to obtain protein-protein interaction
 1. **[MDAnalysis](https://www.mdanalysis.org/)** (v-2.7.0) – For all analysis.
 2. **[MDTraj](https://www.mdtraj.org/1.9.8.dev0/index.html)** (v-1.10.3)– For buried surface area analysis function.
 3. **[NetworkX](https://networkx.org/)** – For visualzing and manipulating pharamcophore graphs
-## Create local database of ligands with Pharmer.
+## Create local database of ligands with Pharmer
 Refer to the [Pharmer manual](https://sourceforge.net/p/pharmer/code/HEAD/tree/)  (there seems to be just a README file). But in short: 
 
 1. Obtain/install the Pharmer executable.
@@ -87,7 +87,7 @@ mkdir ./pharma
 
 5. **Perform pharmacophore screening**
    
-We have everything we need to perform the screening in a local database. Before proceeding make sure to have a local **pharmer compatible** database ready. Refer to the [Database creation section](##Create-local-database-of-ligands-with-pharmer). 
+We have everything we need to perform the screening in a local database. Before proceeding make sure to have a local **pharmer compatible** database ready. Refer to the [Database creation section](#Create-local-database-of-ligands-with-pharmer). 
 
 ```bash
 python 05_perform_screening.py -d $database_path -i $PWD/pharma -o $PWD/search-output -max 10000 -np 4
