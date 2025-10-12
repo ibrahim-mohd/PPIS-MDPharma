@@ -42,8 +42,7 @@ def Sasa_calc(positions, atom_radii, probe_radius=0.14, n_sphere_points=960):
     out = np.zeros((1, n_atoms), dtype=np.float32)
     atom_indices = np.arange(n_atoms, dtype=np.int32)
     mask = np.ones(n_atoms, dtype=np.int32)
-
-    # Use MDTraj private _geometry._sasa (no public API for exact per-atom)
+ 
     from mdtraj.geometry import _geometry
     _geometry._sasa(xyz_nm, radii, n_sphere_points, atom_indices, mask, out)
 
