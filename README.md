@@ -106,7 +106,7 @@ Where $sdf_path is the path to pharmer output ``SDF`` files. For different pharm
 ```bash
 python 07_extract_top_ligands.py -i ligand_scores.pkl -topN 40 -Ngraph 20 -odir $PWD/final-results
 ```
-or if you have multiple scored files from different pharmacophore models:
+or if you have multiple score files from different pharmacophore models:
 
 ```bash
 python 07_extract_top_ligands.py -i ligand_scores1.pkl ligand_scores2.pkl ligand_scores3.pkl -topN 40 -Ngraph 20 -odir $PWD/final-results
