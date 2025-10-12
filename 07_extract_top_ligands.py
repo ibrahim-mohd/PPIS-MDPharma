@@ -13,10 +13,7 @@ import os
 import warnings
 # Suppress specific warnings from MDAnalysis
 warnings.filterwarnings("ignore")#, category=UserWarning, module="MDAnalysis.coordinates.PDB")
-
-
-
-# List of your individual dictionaries
+ 
 def sort_and_join_dicts (dict_list,output_path, output_obj="master_dict.pkl",sorting_key="bsa_harm"):
     
     if len (dict_list.strip().split()) == 1: # if just one dictionary
