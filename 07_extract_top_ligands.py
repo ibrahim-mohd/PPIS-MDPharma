@@ -213,7 +213,7 @@ def extract_ligands(sorted_merged_dict, out_path, top_N=10, top_Ngraphs=20):
             acpype_command = f"python /mnt/second/acpype.py -i  ligand.mol2 -a gaff2 -o gmx -c bcc -n {total_charge}"
             acpype_script_path = os.path.join(ligand_path, "get_ligand_itp.sh")
             with open(acpype_script_path, "w") as f:
-                f.write ("# Here put the correct acpype.py path, or you can use the same command for antechamber")
+                f.write ("# Here put the correct acpype.py path, or you can use the same command for antechamber\n")
                 f.write(acpype_command)
 
 
