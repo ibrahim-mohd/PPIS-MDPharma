@@ -1,3 +1,5 @@
+# Mohd Ibrahim
+# Technical University of Munich
 import subprocess
 import parmed as pmd
 import shutil
