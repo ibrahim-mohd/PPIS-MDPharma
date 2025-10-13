@@ -25,7 +25,7 @@ Refer to the [Pharmer manual](https://sourceforge.net/p/pharmer/code/HEAD/tree/)
 ``` bash
 pharmer.static dbcreate -dbdir=LocalDatabase -in all_ligands.sdf
 ```
-You have a Pharmer compatible local database. We also **provide a datasets** with **10 Million Random** compounds, one can simply unzip it and use the above command to create a Pharmer compatabile database. Note that the compressed file is is around **6.5 GB**, upon uncompression, its size is **41 GB** and the resulting Pharmer database becomes **~134 GB** in size. So you need alteast **190 GB** disk space. However, using the provided scripts, ``./useful-scripts/sample_N_random_ligands.py`` you can just use the subset of the 10 M database. To sample ``N`` compounds"
+You have a Pharmer compatible local database. We also **provide a datasets** with **10 Million Random** compounds, one can simply unzip it and use the above command to create a Pharmer compatabile database. Note that the compressed file is  around **6.5 GB**, upon uncompression, its size is **41 GB** and the resulting Pharmer database becomes **~134 GB** in size. So you need alteast **>190 GB** disk space. However, using the provided scripts, ``./useful-scripts/sample_N_random_ligands.py`` you can just use the subset of the 10 M database. To sample ``N`` compounds"
 ```bash
   python sample_N_random_ligands.py -i random_10M_ligands.sdf.gz -n 100000 -o 100k.sdf.gz
 ```
