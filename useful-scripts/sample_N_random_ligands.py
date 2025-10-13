@@ -1,3 +1,5 @@
+# Written by Mohd Ibrahim
+# Technical University of Munich
 import gzip
 import random
 import argparse
