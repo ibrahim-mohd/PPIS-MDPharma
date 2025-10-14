@@ -39,8 +39,8 @@ def main():
     parser.add_argument('-skip', dest='frame_skip', type=int, default=1, help='skip every n frames')
 
     # Ion options
-    parser.add_argument('-nname', dest='nname', type=str, default='CXY', help='anion name')
-    parser.add_argument('-pname', dest='pname', type=str, default='NIO', help='cation name')
+    parser.add_argument('-nname', dest='nname', type=str, default='Cl-', help='anion name')
+    parser.add_argument('-pname', dest='pname', type=str, default='Na+', help='cation name')
     # Solvent residue and atom names
     
     parser.add_argument('-hsol_name', dest='hsol_name', type=str, default='HW1 HW2', help='atom name of water hydrogens')
