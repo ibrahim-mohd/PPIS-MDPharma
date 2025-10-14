@@ -47,7 +47,7 @@ Before proceeding, ensure you have the following files prepared:
 
    **Option 2 — Detect Pockets Using Fpocket**  
    - If no ligand-bound structure is available, you can use **[Fpocket](https://github.com/Discngine/fpocket)** to identify potential binding pockets.  
-   - Supply the **Fpocket output `.pdb` file**, which includes the protein and all detected pockets.  
+   - Supply the **Fpocket output `*_out.pdb` file**, which includes the protein and all detected pockets.  
    - You will also need the **residue IDs** corresponding to the pocket of interest.
 
 3. **Reference Frame**  
