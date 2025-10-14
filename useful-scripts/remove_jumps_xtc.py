@@ -11,7 +11,7 @@ parser = argparse.ArgumentParser (description="Remove molecules breakign across 
 
 #########################################################
 
-parser.add_argument('-f', dest='xtc_file', type=str, default='npt.xtc',help='xtc file')
+parser.add_argument('-f', dest='xtc_file', type=str, default='npt.xtc',help='input xtc file')
 parser.add_argument('-s', dest='tpr_file', type=str, default='npt.tpr',help='input tpr file')
 parser.add_argument('-o', dest='out_xtc', type=str, default='mol.xtc',help='output xtc file')
 parser.add_argument('-on', dest='out_ndx', type=str, default='mol_ndx.ndx',help='output index file')
