@@ -33,14 +33,14 @@ def main():
     parser.add_argument('-fl', dest='coord_file', type=str, default='protein_lig.gro', help='protein-ligand gro or pdb file or FPocket output with protein and pockets')
     parser.add_argument('-f', dest='xtc_file', type=str, default='mol.xtc', help='input xtc file')
     parser.add_argument('-s', dest='tpr_file', type=str, default='npt.tpr', help='input tpr file')
-    parser.add_argument("-pocket_id", dest="pocket_id", type=int, default=0, help="Pocket ID (0 = ligand-based pocket)")
+    parser.add_argument("-pocket_id", nargs="+", dest="pocket_id", type=int, default=0, help="Pocket ID (0 = ligand-based pocket)")
     parser.add_argument('-b', dest='begin_time', type=float, default=0, help='begin time in ps')
     parser.add_argument('-e', dest='end_time', type=float, default=-1, help='end time in ps')
     parser.add_argument('-skip', dest='frame_skip', type=int, default=1, help='skip every n frames')
 
     # Ion options
-    parser.add_argument('-nname', dest='nname', type=str, default='Cl-', help='anion name')
-    parser.add_argument('-pname', dest='pname', type=str, default='Na+', help='cation name')
+    parser.add_argument('-nname', dest='nname', type=str, default='CXY', help='anion name')
+    parser.add_argument('-pname', dest='pname', type=str, default='NIO', help='cation name')
     # Solvent residue and atom names
     
     parser.add_argument('-hsol_name', dest='hsol_name', type=str, default='HW1 HW2', help='atom name of water hydrogens')
@@ -61,6 +61,10 @@ def main():
         ligand_name = u.select_atoms("all and not protein").resnames[0]
         pocket = u.select_atoms(f"byres protein and (around 5 resname {ligand_name})")
     else:
+        
+        if isinstance(pocket_id, list):
+            pocket_id = " ".join (str(x) for x in pocket_id ) 
+        
         protein_ = u.select_atoms("protein")
         protein_.residues.resids = np.arange(1, len(protein_.residues.resids) + 1)
         pocket = u.select_atoms(f"byres protein and (around 5 resname STP and resid {pocket_id})")
