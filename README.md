@@ -115,3 +115,7 @@ or if you have multiple score files from different pharmacophore models:
 python 07_extract_top_ligands.py -i ligand_scores1.pkl ligand_scores2.pkl ligand_scores3.pkl -topN 40 -Ngraph 20 -odir $PWD/final-results
 ```
 However, I recommend not mixing up results with different pharmacophore modeles with different number of features
+## References
+
+If you find this useful please cite:
+*Protein-Protein Interaction Stabilizers from MD Simulation-derived Pharmacophores*, Mohd Ibrahim and Martin Zacharias (In preparation)
