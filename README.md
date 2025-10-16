@@ -114,7 +114,7 @@ or if you have multiple score files from different pharmacophore models:
 ```bash
 python 07_extract_top_ligands.py -i ligand_scores1.pkl ligand_scores2.pkl ligand_scores3.pkl -topN 40 -Ngraph 20 -odir $PWD/final-results
 ```
-However, I recommend not mixing up results with different pharmacophore modeles with different number of features
+However, I recommend not mixing up results with different pharmacophore modeles with different number of features. To setup simulations in a quick way refer to ``./useful/scripts/setup_simulation_protein_ligand_ff19_ff14.py`` python script which setups up simulations of protein/protein complexs and as well as will ligands.
 ## References
 
 If you find this useful please cite:
