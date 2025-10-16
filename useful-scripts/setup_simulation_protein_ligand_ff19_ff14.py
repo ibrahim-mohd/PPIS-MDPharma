@@ -2,7 +2,7 @@ import subprocess
 import parmed as pmd
 import shutil
 import os
-import numpy as np  # Import numpy for array operations
+import numpy as np   
 import argparse
 import MDAnalysis as mda
 
