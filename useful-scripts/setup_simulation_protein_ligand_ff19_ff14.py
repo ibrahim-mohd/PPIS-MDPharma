@@ -1,5 +1,3 @@
-# Mohd Ibrahim
-# Technical University of Munich
 import subprocess
 import parmed as pmd
 import shutil
@@ -15,12 +13,14 @@ parser = argparse.ArgumentParser(description="Setup simulations.")
 parser.add_argument('-p', '--path0', type=str, help="Base directory path")
 parser.add_argument('-f', '--pdb_file', type=str, default="protein.pdb", help="protein pdb file")
 parser.add_argument('-ff', '--force_field', type=str, default="ff14SB", help="forcefield, ff19SB or ff14SB")
-parser.add_argument('-ligand', '--ligand_path', type=str, default=None, help="provide the full path and name to the ligand itp file")
+parser.add_argument('-ligand_itp', '--ligand_itp', type=str, default=None, help="provide the full path and name to the ligand itp file")
 parser.add_argument('-ligand_gro', '--ligand_gro', type=str, default=None, help="ligand gro file, provide the ligand gro path with full filename")
 
 parser.add_argument('-opc', '--opc_gro', type=str, default="/mnt/second/opc.gro", help="opc strucutre gro file")
 
 parser.add_argument('-sim_time', '--sim_time', type=float, default=100.0, help="simulation time for production in ns")
+parser.add_argument('-pdb4amber', '--pdb4amber', type=int, default=1, help="if 1 runs pdb4amber before tleap if 0 do not run. default is 1")
+
 
 # water and ion model
 # Define the lines to add
@@ -472,7 +472,7 @@ args = parser.parse_args()
 path0        = args.path0
 pdb_file     = args.pdb_file
 force_field  = args.force_field
-ligand_path  = args.ligand_path
+ligand_itp  = args.ligand_itp
 ligand_gro   = args.ligand_gro
 opc_gro      = args.opc_gro
 nsteps       = int (args.sim_time*1e3/0.002) # 
@@ -490,8 +490,11 @@ activate_command = f"source $(conda info --base)/etc/profile.d/conda.sh && conda
 subprocess.run (activate_command, shell=True, executable="/bin/bash")
  
 #Step 2
-command = f"pdb4amber -i {pdb_file} -o pdb4amber.pdb"
-subprocess.run(command, shell=True, executable="/bin/bash")
+if  args.pdb4amber:
+    command = f"pdb4amber -i {pdb_file} -o pdb4amber.pdb"
+    subprocess.run(command, shell=True, executable="/bin/bash")
+    pdb_file = "pdb4amber.pdb"
+ 
  
 # strip the hydrogens
 #mda.Universe ("pdb4amber.pdb").select_atoms("all and not name H* 1H* 2H* 3H*").write ("pdb4amber.pdb")
@@ -501,7 +504,7 @@ tleap_input_file = "tleap.in"
 
 tleap_commands = f"""\
 source leaprc.protein.{force_field}
-pro = loadpdb pdb4amber.pdb
+pro = loadpdb {pdb_file}
 saveamberparm pro protein.prmtop protein.inpcrd
 quit
 """
@@ -526,9 +529,9 @@ parm.save('protein.gro', overwrite=True)
 os.makedirs(path0 + "/itp/", exist_ok=True)  
 # if there is ligand
 ## Add ligand topology
-if ligand_path:
+if ligand_itp:
     # read ligand itp
-    with open(ligand_path, 'r') as f: lines = f.readlines()
+    with open(ligand_itp, 'r') as f: lines = f.readlines()
 
     # create atom type a sperate itp file
     
@@ -580,7 +583,7 @@ with open(path0 + "/topol.top", 'w') as out_file:
         # write restraint file
         out_file.write (f"#ifdef POSRES_{alphabets[n-1]} \n#include \"./itp/posre_{alphabets[n-1]}.itp\"\n#endif\n")
         
-    if ligand_path:
+    if ligand_itp:
         out_file.write(f"\n#include \"./itp/ligand.itp\"\n")
         out_file.write (f"#ifdef POSRES_lig \n#include \"./itp/posre_lig.itp\"\n#endif\n")
 
@@ -589,7 +592,7 @@ with open(path0 + "/topol.top", 'w') as out_file:
 
     for line in topol_lines: out_file.write (line)
 
-    if ligand_path:
+    if ligand_itp:
         out_file.write (f"{ligand_name} \t 1\n")
 
 # modify the non-bonded file to add solvent, ion and ligand atomtypes
@@ -620,7 +623,7 @@ with open(path0 + "/itp/ff_nonbonded.itp", "w+") as output_file:
     
     else: print ("forcefield can be either of ff14SB or ff19SB")
     ## add ligand
-    if ligand_path: output_file.writelines (ligand_atom_type)
+    if ligand_itp: output_file.writelines (ligand_atom_type)
     ## write back the rest
     output_file.writelines (non_bonded_file [type_index:])     
 
@@ -631,7 +634,7 @@ with open(path0 + "/itp/ff_nonbonded.itp", "w+") as output_file:
 ###### From here, simulation setup creation is carried out ##########################################33
 os.chdir(path0+ "/initial/")
 
-if ligand_path: 
+if ligand_itp: 
     u_protein = mda.Universe ( path0+ "/initial/"+"protein.gro")
     u_ligand =  mda.Universe (ligand_gro)
     mda.Merge (u_protein.atoms, u_ligand.atoms).atoms.write (path0 + "/initial/protein_lig.gro")
@@ -697,7 +700,7 @@ with mda.selections.gromacs.SelectionWriter(path0 + "/index.ndx", mode='w') as n
         u.atoms.fragments [n].write (path0 + f"/initial/chain{alphabets [n]}.gro")
         restrain_line = restrain_line + " " + f"-DPOSRES_{alphabets[n]}"
         
-    if ligand_path:
+    if ligand_itp:
         ligand = u.select_atoms ("all and not protein and not (resname SOL or name Cl- Na+)")
         ndx.write(ligand, name="ligand")
         ligand.write (path0 + "/initial/ligand.gro")
@@ -736,7 +739,7 @@ for fc in 1000 100 10 1;do
     for n in range (0, n_proteins):
         line = f"\t echo Backbone | gmx genrestr -f initial/chain{alphabets[n]}.gro -o itp/posre_{alphabets[n]}.itp -fc $fc\n"
         f.write (line)
-    if ligand_path:
+    if ligand_itp:
         line = f"\t echo 0 | gmx genrestr -f initial/ligand.gro -o itp/posre_lig.itp -fc $fc\n"
         f.write (line)
     f.write ("\t rm itp/*#\n")
