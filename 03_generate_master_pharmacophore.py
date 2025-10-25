@@ -1,5 +1,3 @@
-# Written by Mohd Ibrahim
-# Technical University of Munich
 import pickle
 import json
 import argparse
@@ -31,7 +29,7 @@ def parse_args():
                         help='Threshold for hydrogen acceptor')
     parser.add_argument('-donor_th', dest='donor_threshold', type=float, default=40.0,
                         help='Threshold for hydrogen donor')
-    parser.add_argument('-ion_th', dest='threshold_ion_difference', type=float, default=100,
+    parser.add_argument('-ion_th', dest='threshold_ion_difference', type=float, default=30,
                         help='Threshold for |N_anion - N_cation|')
 
     # Output file
@@ -152,11 +150,12 @@ def main():
     threshold_ion_difference = args.threshold_ion_difference
 
     # Limits
-    nmax_hydrophobic = 6
-    nmax_donor = 6
-    nmax_acceptor = 6
-    nmax_cation = 6
-    nmax_anion = 6
+    # if more than these limits we  use the top 10 scores
+    nmax_hydrophobic = 10
+    nmax_donor = 10
+    nmax_acceptor = 10
+    nmax_cation = 10
+    nmax_anion = 10
 
     # Identify pharmacophore sites
     # Hydrophobic

@@ -1,5 +1,3 @@
-# Written by Mohd Ibrahim
-# Techinical University of Munich
 from collections import defaultdict
 import copy
 import argparse
@@ -13,7 +11,10 @@ import os
 import warnings
 # Suppress specific warnings from MDAnalysis
 warnings.filterwarnings("ignore")#, category=UserWarning, module="MDAnalysis.coordinates.PDB")
- 
+
+
+
+# List of your individual dictionaries
 def sort_and_join_dicts (dict_list,output_path, output_obj="master_dict.pkl",sorting_key="bsa_harm"):
     
     if len (dict_list.strip().split()) == 1: # if just one dictionary
@@ -130,12 +131,13 @@ def parse_single_sdf_file(file_path):
             elif len(line.split()) == 9: 
                 # Thepharmer output sdf has 9 coloumns for coordinate sectino
                 parts = line.split()
-                
-                xyz = [float(x) for x in parts[:3]]
+                try: 
+                    xyz = [float(x) for x in parts[:3]]
                
-                data.append(xyz)
-                atom_name.append (parts[3])
- 
+                    data.append(xyz)
+                    atom_name.append (parts[3])
+                except(ValueError):
+                    continue    
     return zinc_dict
     
  
@@ -144,8 +146,10 @@ def extract_ligands(sorted_merged_dict, out_path, top_N=10, top_Ngraphs=20):
     
     sdf_dict_list = {}
     Saved_keys = []
-
-    for graph_index, key in enumerate(sorted_merged_dict.keys()):
+    # sort according to graph keys, since graphs are ranked by thte keys 
+    sorted_keys = sorted(sorted_merged_dict.keys(), key=int)
+    total_ligands = 0
+    for graph_index, key in enumerate(sorted_keys):
         if graph_index >= top_Ngraphs: 
             break
         
@@ -153,8 +157,9 @@ def extract_ligands(sorted_merged_dict, out_path, top_N=10, top_Ngraphs=20):
         os.makedirs(path, exist_ok=True)
 
         n_ligands = min(top_N, len(sorted_merged_dict[key]))
-
+        
         for index, (zinc_id, value) in tqdm (enumerate(sorted_merged_dict[key].items()), desc=f"Processing Graph {key}" ):
+            total_ligands += 1
             if zinc_id in Saved_keys:
                 continue
             if index >= n_ligands:
@@ -213,11 +218,12 @@ def extract_ligands(sorted_merged_dict, out_path, top_N=10, top_Ngraphs=20):
             acpype_command = f"python /mnt/second/acpype.py -i  ligand.mol2 -a gaff2 -o gmx -c bcc -n {total_charge}"
             acpype_script_path = os.path.join(ligand_path, "get_ligand_itp.sh")
             with open(acpype_script_path, "w") as f:
-                f.write ("# Here put the correct acpype.py path, or add antechamber command with same input\n")
+                f.write ("# Here put the correct acpype.py path, or you can use the same command for antechamber\n")
                 f.write(acpype_command)
 
-
             Saved_keys.append(key)
+    print (f"extracted {total_ligands} ligands ")
+
             
 def main():
     parser = argparse.ArgumentParser(description="Merge dictionaries and extract top ligands")

@@ -42,7 +42,8 @@ def Sasa_calc(positions, atom_radii, probe_radius=0.14, n_sphere_points=960):
     out = np.zeros((1, n_atoms), dtype=np.float32)
     atom_indices = np.arange(n_atoms, dtype=np.int32)
     mask = np.ones(n_atoms, dtype=np.int32)
- 
+
+    # Use MDTraj private _geometry._sasa (no public API for exact per-atom)
     from mdtraj.geometry import _geometry
     _geometry._sasa(xyz_nm, radii, n_sphere_points, atom_indices, mask, out)
 
@@ -79,18 +80,22 @@ def parse_single_sdf_file(file_path):
                 current_rmsd = None
                 read_rmsd = False
 
-            elif len(line.split()) >= 4:  # flexible parsing
+            elif len(line.split()) == 9:   # Thepharmer output sdf has 9 coloumns for coordinate sectino
                 parts = line.split()
                 try:
                     xyz = [float(x) for x in parts[:3]]
-                    name = parts[3]
-                    data.append(xyz)
-                    try:
-                        atom_radii.append(_ATOMIC_RADII[element_symbol_string(name)])
-                    except KeyError:
-                        atom_radii.append(1.5)  # fallback radius
+
                 except ValueError:
+                    print (zinc_id, file_path)
+                    # skip lines that don't have coordinates
                     continue
+                name = parts[3]
+                data.append(xyz)
+                try:
+                    atom_radii.append(_ATOMIC_RADII[element_symbol_string(name)])
+                except KeyError:
+                    atom_radii.append(1.5)  # fallback radius
+         
 
             elif "rmsd" in line.lower():
                 read_rmsd = True
