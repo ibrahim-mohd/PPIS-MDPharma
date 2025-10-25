@@ -33,7 +33,7 @@ def main():
     parser.add_argument('-fl', dest='coord_file', type=str, default='protein_lig.gro', help='protein-ligand gro or pdb file or FPocket output with protein and pockets')
     parser.add_argument('-f', dest='xtc_file', type=str, default='mol.xtc', help='input xtc file')
     parser.add_argument('-s', dest='tpr_file', type=str, default='npt.tpr', help='input tpr file')
-    parser.add_argument("-pocket_id", nargs="+", dest="pocket_id", type=int, default=0, help="Pocket ID (0 = ligand-based pocket)")
+    parser.add_argument("-pocket_id", dest="pocket_id", type=int, default=0, help="Pocket ID (0 = ligand-based pocket)")
     parser.add_argument('-b', dest='begin_time', type=float, default=0, help='begin time in ps')
     parser.add_argument('-e', dest='end_time', type=float, default=-1, help='end time in ps')
     parser.add_argument('-skip', dest='frame_skip', type=int, default=1, help='skip every n frames')
@@ -48,7 +48,7 @@ def main():
     parser.add_argument('-sol_resname', dest='sol_resname', type=str, default='SOL', help='resname of water molecules')
     
     # Output
-    parser.add_argument('-o', dest='pkl_object', type=str, default='all_features.pkl', help='output pickle object')
+    parser.add_argument('-o', dest='pkl_object', type=str, default='combined_analysis.pkl', help='output pickle object')
 
     args = parser.parse_args()
 
@@ -61,10 +61,6 @@ def main():
         ligand_name = u.select_atoms("all and not protein").resnames[0]
         pocket = u.select_atoms(f"byres protein and (around 5 resname {ligand_name})")
     else:
-        
-        if isinstance(pocket_id, list):
-            pocket_id = " ".join (str(x) for x in pocket_id ) 
-        
         protein_ = u.select_atoms("protein")
         protein_.residues.resids = np.arange(1, len(protein_.residues.resids) + 1)
         pocket = u.select_atoms(f"byres protein and (around 5 resname STP and resid {pocket_id})")
