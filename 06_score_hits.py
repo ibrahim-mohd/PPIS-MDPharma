@@ -84,13 +84,14 @@ def parse_single_sdf_file(file_path):
                 parts = line.split()
                 try:
                     xyz = [float(x) for x in parts[:3]]
-
+                    name = parts[3]
+                    data.append(xyz)
+                    
                 except ValueError:
-                    print (zinc_id, file_path)
-                    # skip lines that don't have coordinates
-                    continue
-                name = parts[3]
-                data.append(xyz)
+                    # inthe pharmer output for some cases non-coordinate line asl o have 9 cols but ahve
+                    # strings in the first few columns so we simply skip such lines
+                    pass
+
                 try:
                     atom_radii.append(_ATOMIC_RADII[element_symbol_string(name)])
                 except KeyError:
@@ -132,8 +133,11 @@ def load_protein(tpr_file, gro_file):
         "xyz": {"protein": protein.positions, "chainA": chainA.positions, "chainB": chainB.positions}
     }
 
-def get_bsa(dict_protein, dict_ligand, ligindex=0):
+def get_bsa(dict_protein, dict_ligand):
     """Compute buried surface areas for ligand with protein chains."""
+    # if some ligand have multiple conformations we take the one with least rmsd i.e one which satisfies
+    # the pharmacophore best
+    ligindex = np.argmin(dict_ligand['rmsd']) if len(dict_ligand['xyz']) > 1 else 0
     ligand_xyz = dict_ligand['xyz'][ligindex]
     ligand_radii = dict_ligand['atom_radii']
 

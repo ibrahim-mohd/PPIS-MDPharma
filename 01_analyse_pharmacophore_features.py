@@ -33,7 +33,7 @@ def main():
     parser.add_argument('-fl', dest='coord_file', type=str, default='protein_lig.gro', help='protein-ligand gro or pdb file or FPocket output with protein and pockets')
     parser.add_argument('-f', dest='xtc_file', type=str, default='mol.xtc', help='input xtc file')
     parser.add_argument('-s', dest='tpr_file', type=str, default='npt.tpr', help='input tpr file')
-    parser.add_argument("-pocket_id", dest="pocket_id", type=int, default=0, help="Pocket ID (0 = ligand-based pocket)")
+    parser.add_argument("-pocket_id", dest="pocket_id", type=str, default=None, help="Pocket ID (0 = ligand-based pocket)")
     parser.add_argument('-b', dest='begin_time', type=float, default=0, help='begin time in ps')
     parser.add_argument('-e', dest='end_time', type=float, default=-1, help='end time in ps')
     parser.add_argument('-skip', dest='frame_skip', type=int, default=1, help='skip every n frames')
@@ -46,7 +46,12 @@ def main():
     parser.add_argument('-hsol_name', dest='hsol_name', type=str, default='HW1 HW2', help='atom name of water hydrogens')
     parser.add_argument('-osol_name', dest='osol_name', type=str, default='OW', help='atomname of water oxygens')
     parser.add_argument('-sol_resname', dest='sol_resname', type=str, default='SOL', help='resname of water molecules')
-    
+
+    # exclude residues
+    parser.add_argument('-res_exclude', dest='res_exclude', type=str, default=None, help='residues to exclude for analysis e.g those that already contributes significantly to stabilziation of the complex')
+    ########
+    parser.add_argument('-cutoff', dest='contact_cutoff', type=float, default=5, help='all residues within this distance of the ligand or pocket atoms are considered for analysis')
+
     # Output
     parser.add_argument('-o', dest='pkl_object', type=str, default='combined_analysis.pkl', help='output pickle object')
 
@@ -55,15 +60,25 @@ def main():
     # ---------------- Pocket selection ---------------- #
     coord_file = args.coord_file
     pocket_id = args.pocket_id
+    res_exclude = args.res_exclude
+    contact_cutoff = args.contact_cutoff
     u = mda.Universe(coord_file)
-
-    if pocket_id == 0:
+    # to renumber protien resids from 1 to N in a continous way incase for if the resid is reset for different chains ie. 
+    # resid starts from 1 for each chain.  
+    protein_ = u.select_atoms("protein")
+    protein_.residues.resids = np.arange(1, len(protein_.residues.resids) + 1)
+    
+    if not pocket_id:
         ligand_name = u.select_atoms("all and not protein").resnames[0]
-        pocket = u.select_atoms(f"byres protein and (around 5 resname {ligand_name})")
+        if res_exclude:
+            pocket = u.select_atoms(f"byres protein and not resid {res_exclude} and (around {contact_cutoff} resname {ligand_name})")
+        else:
+            pocket = u.select_atoms(f"byres protein and (around {contact_cutoff} resname {ligand_name})")
     else:
-        protein_ = u.select_atoms("protein")
-        protein_.residues.resids = np.arange(1, len(protein_.residues.resids) + 1)
-        pocket = u.select_atoms(f"byres protein and (around 5 resname STP and resid {pocket_id})")
+        if res_exclude:
+            pocket = u.select_atoms(f"byres protein and not resid {res_exclude} and (around {contact_cutoff} resname STP and resid {pocket_id})")
+        else:
+            pocket = u.select_atoms(f"byres protein and (around {contact_cutoff} resname STP and resid {pocket_id})")
 
     # ---------------- SASA & ΔGsolv ---------------- #
     u = mda.Universe(args.tpr_file, args.xtc_file)

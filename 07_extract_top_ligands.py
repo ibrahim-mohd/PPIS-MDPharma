@@ -110,7 +110,9 @@ def parse_single_sdf_file(file_path):
         
         data, atom_name = [], []
         zinc_id = None
-      
+        current_rmsd = None
+        read_rmsd = False
+        
         for line in f:
             line = line.strip()
             if not line:
@@ -119,14 +121,17 @@ def parse_single_sdf_file(file_path):
             if "ZINC" in line:
                 zinc_id = line
                 if zinc_id not in zinc_dict:
-                    zinc_dict[zinc_id] = {"xyz": [], "name": []}
+                    zinc_dict[zinc_id] = {"xyz": [], "name": [], "rmsd":[]}
 
             elif "$$$$" in line:
                 if zinc_id is not None:
                     zinc_dict[zinc_id]["xyz"].append(np.array(data))
                     zinc_dict[zinc_id]["name"] = atom_name
-              
+                    zinc_dict[zinc_id]["rmsd"].append(current_rmsd)
+                    
                 data, atom_name = [], []
+                current_rmsd = None
+                read_rmsd = False
 
             elif len(line.split()) == 9: 
                 # Thepharmer output sdf has 9 coloumns for coordinate sectino
@@ -137,9 +142,22 @@ def parse_single_sdf_file(file_path):
                     data.append(xyz)
                     atom_name.append (parts[3])
                 except(ValueError):
-                    continue    
+                    pass    
+                    
+            elif "rmsd" in line.lower():
+                read_rmsd = True
+
+            elif read_rmsd:
+                try:
+                    current_rmsd = float(line)
+                except ValueError:
+                    current_rmsd = None
+                read_rmsd = False            
+            
+                
     return zinc_dict
     
+
  
 
 def extract_ligands(sorted_merged_dict, out_path, top_N=10, top_Ngraphs=20):
@@ -173,7 +191,8 @@ def extract_ligands(sorted_merged_dict, out_path, top_N=10, top_Ngraphs=20):
             if sdf_name not in sdf_dict_list:
                 sdf_dict_list[sdf_name] = parse_single_sdf_file(value["sdf_name"])
 
-            ligand_xyz = sdf_dict_list[sdf_name][zinc_id]['xyz'][0]
+            ligand_index = np.argmin (sdf_dict_list[sdf_name][zinc_id]['rmsd'])
+            ligand_xyz = sdf_dict_list[sdf_name][zinc_id]['xyz'][ligand_index]
             name = sdf_dict_list[sdf_name][zinc_id]['name']
 
             # Create ligand PDB

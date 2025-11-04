@@ -19,7 +19,7 @@ def parse_args():
     parser.add_argument('-c', dest='coord_file', type=str, default='protein.gro', help='PDB/GRO file')
 
     # Input PKL object files
-    parser.add_argument('-p', dest='features_pkl', type=str, default='dgsolv_sasa.pkl',
+    parser.add_argument('-p', dest='features_pkl', type=str, default='./combined_analysis.pkl',
                         help='Pickle file with solvation energy information')
 
     # Thresholds
@@ -150,7 +150,6 @@ def main():
     threshold_ion_difference = args.threshold_ion_difference
 
     # Limits
-    # if more than these limits we  use the top 10 scores
     nmax_hydrophobic = 10
     nmax_donor = 10
     nmax_acceptor = 10
