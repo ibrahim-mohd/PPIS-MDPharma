@@ -66,14 +66,14 @@ Where, ``protein_out.pdb`` is the Fpocket output and we are intersted int eh poc
 
    Plot the above features and apply thresholds to select features. It is best to keep number of features less than 10.
 ```bash
-python 02_feature_selection_plot.py -p all_features.pkl -c $PWD/mol.gro -s $PWD/npt.tpr -acceptor_th 30 -donor_th 40 -dG_th 0.5 -ion_th 30
+python 02_feature_selection_plot.py -p all_features.pkl -c $PWD/mol.gro -s $PWD/npt.tpr -acceptor_th 35 -donor_th 35 -dG_th 0.25 -ion_th 30
 ```
 
 3. **Master pharmacophore model generation**
    
    Generate pharmacophores using the above obtained thresholds
    ```bash
-   python 03_generate_master_pharmacophore.py -p all_features.pkl -c $PWD/mol.gro -s $PWD/npt.tpr -acceptor_th 30 -donor_th 40 -dG_th 0.5 -ion_th 30 -o master_pharmacophore.json
+   python 03_generate_master_pharmacophore.py -p all_features.pkl -c $PWD/mol.gro -s $PWD/npt.tpr -acceptor_th 35 -donor_th 35 -dG_th 0.25 -ion_th 25 -o master_pharmacophore.json
    ```
 
 4. **Sub-pharmacophore generation (Subsets of master pharmacophore)**
