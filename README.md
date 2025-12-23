@@ -53,7 +53,7 @@ Before proceeding, ensure you have the following files prepared:
     ```bash
       python 00_identify_pocket_conf.py -f $xtc_file -s $tpr_file -n 500 -b 20000 -on 5 -keep 0 -out_path $PWD/fpocket-confs
     ```
-
+    Where, ``-n 500`` means we use 500 frames from the trajectory to detect pockets and choose top 5 set by ``-on 5``. The 5 configurations have highest value of harmonic mean of buried surface area of pocket with both protein partners.
 3. **Reference Frame**  
    - Select a representative frame from your trajectory to use for **pharmacophore model generation**.  
    - The pharmacophore hits will correspond to this specific configuration.
