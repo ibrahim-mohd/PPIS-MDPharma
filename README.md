@@ -49,6 +49,10 @@ Before proceeding, ensure you have the following files prepared:
    - If no ligand-bound structure is available, you can use **[Fpocket](https://github.com/Discngine/fpocket)** to identify potential binding pockets.  
    - Supply the **Fpocket output `*_out.pdb` file**, which includes the protein and all detected pockets.  
    - You will also need the **residue IDs** corresponding to the pocket of interest.
+   - The script ``00_identify_pocket_conf.py`` does this in a convinient manner and selects MD frame which has more open pocket at the interface. Run the following command:
+    ```bash
+      python 00_identify_pocket_conf.py -f $xtc_file -s $tpr_file -n 500 -b 20000 -on 5 -keep 0 -out_path $PWD/fpocket-confs
+    ```
 
 3. **Reference Frame**  
    - Select a representative frame from your trajectory to use for **pharmacophore model generation**.  
