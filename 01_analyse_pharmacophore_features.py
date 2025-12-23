@@ -1,3 +1,6 @@
+# Written by Mohd Ibrahim
+# Technical University of Munich
+
 import argparse
 from tqdm import tqdm
 import numpy as np
