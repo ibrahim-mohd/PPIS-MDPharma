@@ -433,8 +433,8 @@ def partition_topol_file(input_file = "topol.top", out_path = "./"):
      
 
 def cmap_correction (amber):
-###
-# The following function is adapted from  https://github.com/ParmEd/ParmEd/issues/1292 from the user csy0000.
+
+# This function is adapted from  https://github.com/ParmEd/ParmEd/issues/1292 from the user csy0000.
 # I have mannually checked its accuracy by comparing with Charmm-gui generated files and found to be identical
     #amber = pmd.load_file(options.prmtop,options.inpcrd)
     
