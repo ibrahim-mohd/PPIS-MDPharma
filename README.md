@@ -80,9 +80,9 @@ python 02_feature_selection_plot.py -p all_features.pkl -c $PWD/mol.gro -s $PWD/
    
    Generate pharmacophores using the above obtained thresholds
    ```bash
-   python 03_generate_master_pharmacophore.py -p all_features.pkl -c $PWD/mol.gro -s $PWD/npt.tpr -acceptor_th 35 -donor_th 35 -dG_th 0.25 -ion_th 25 -o master_pharmacophore.json
+   python 03_generate_master_pharmacophore.py -p all_features.pkl -c $PWD/mol.gro -s $PWD/npt.tpr -acceptor_th 35 -donor_th 35 -dG_th 0.2 -ion_th 25 -o master_pharmacophore.json
    ```
-
+Note that `mol.gro` is our reference frame.
 4. **Sub-pharmacophore generation (Subsets of master pharmacophore)**
 
    Generate subsets of master pharmacophore as: first create an output directory named (let's say) ``pharma``
