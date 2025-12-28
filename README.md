@@ -30,6 +30,7 @@ You have a Pharmer compatible local database. We also **provide a datasets** wit
   python sample_N_random_ligands.py -i random_10M_ligands.sdf.gz -n 100000 -o 100k.sdf.gz
 ```
 Download our database from [10 Million Random Compounds](https://syncandshare.lrz.de/getlink/fiREpkFfuKx4wt3LPu6u82/random_10M_ligands.sdf.gz). Note that it could take hours to create a 10 Million compound database.
+
 ## Usage
  #### Files required
 
