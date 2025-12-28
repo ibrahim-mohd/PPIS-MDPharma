@@ -37,7 +37,7 @@ Download our database from [10 Million Random Compounds](https://syncandshare.lr
 Before proceeding, ensure you have the following files prepared:
 
 1. **Trajectory Files**  
-   - The `.xtc` and `.tpr` files from the MD trajectory. The complex should be whole with no jumping across the box boundary before usage e.g you can use ``gmx trjconv`` with ``pbc mol`` option.
+   - The `.xtc` and `.tpr` files from the MD trajectory. The complex should be whole with no jumping across the box boundary before usage e.g you can use ``gmx trjconv`` with ``pbc mol`` option. You can use the `./useful-scripts/remove_jumps_xtc.py` script to achieve that, it just takes the `tpr` and `xtc` file as input and outputs a new trajectory with the periodic jumps corrected.
 2. **Structure File for Pocket Identification**  
    You need a `.pdb` or `.gro` file to identify the binding pocket at the interface. There are two possible approaches:
 
@@ -58,6 +58,8 @@ Before proceeding, ensure you have the following files prepared:
 3. **Reference Frame**  
    - Select a representative frame from your trajectory to use for **pharmacophore model generation**.  
    - The pharmacophore hits will correspond to this specific configuration.
+   - You can also use one of the Fpocket configurations that ``00_identify_pocket_conf.py`` outputs.
+   - This frame should correspond to a full MD frame with protein, water and ions etc.
 
 #### Running the commands
 
