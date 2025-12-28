@@ -69,11 +69,11 @@ python 01_analyse_pharmacophore_features.py -fl $PWD/protein_out.pdb -f $PWD/mol
 ```
 Where, ``protein_out.pdb`` is the Fpocket output and we are intersted int eh pocket with resid (pocket ID) 1. Incase this file already has the ligand bound, no need to specify pocket ID. The flags are similar to gromacs conventions. Also, the default name of solvent resname is ``SOL`` and the solvent oxygen and hydrogen are `OW`, `HW1 HW2`. If that is not the case use extra flags to add the info. 
 
-2. **Feature selection**
+2. **Feature selection (Optional)**
 
-   Plot the above features and apply thresholds to select features. It is best to keep number of features less than 10.
+   Plot the above features and apply thresholds to select features. It is best to keep total number of features less than 20. Note  this part is optional, it only outputs a figure so that one has an idea of what threshold to apply. If this part is skipped, the default thresholds are 35, 0.2 and 25 for H-bond donor/acceptor, hydrophobic/aromatic and negative/positive features.
 ```bash
-python 02_feature_selection_plot.py -p all_features.pkl -c $PWD/mol.gro -s $PWD/npt.tpr -acceptor_th 35 -donor_th 35 -dG_th 0.25 -ion_th 30
+python 02_feature_selection_plot.py -p all_features.pkl -c $PWD/mol.gro -s $PWD/npt.tpr -acceptor_th 35 -donor_th 35 -dG_th 0.2 -ion_th 25
 ```
 
 3. **Master pharmacophore model generation**
