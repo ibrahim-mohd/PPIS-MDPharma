@@ -1,5 +1,6 @@
 ## Introduction
 This repository provides codes and scripts to obtain protein-protein interaction stabilizers as described in our paper "*Protein-Protein Interaction Stabilizers from MD Simulation-derived Pharmacophores, Mohd Ibrahim and Martin Zacharias*". In nut-shell, we generate pharmacophore models from MD simulations and search for corresponding ligands that satisfy the pharmacophores in a local data. The scripts here automates the whole procedure.
+**Note** 
 
 ## Dependencies
 #### Software Packages
