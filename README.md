@@ -57,9 +57,11 @@ Before proceeding, ensure you have the following files prepared:
       python 00_identify_pocket_conf.py -f $xtc_file -s $tpr_file -n 500 -b 20000 -on 5 -keep 0 -out_path $PWD/fpocket-confs
     ```
     Where, ``-n 500`` means we use 500 frames from the trajectory to detect pockets and choose top 5 set by ``-on 5``. The 5 configurations have highest value of harmonic mean of buried surface area of pocket with both protein partners.
-  **Option 3 — From known pocket residue IDs**
-     - You need the **residue IDs of the Pocket residues** of  corresponding to the pocket of interest.
-     - Lets say the resids are `12 34 56 199 200 234 240`, then simply use the `-pocket_resids` flag and provide the resids as space seperated strings e.g `-pocket_resid "12 34 56 199 200 234 240"`. You do not need anything else
+   
+   **Option 3 — From known pocket residue IDs**
+     - You need the **residue IDs of the Pocket residues**
+     - Lets say the resids are `12 34 56 199 200 234 240`, then simply use the `-pocket_resids` flag and provide the resids as space seperated strings e.g `-pocket_resid "12 34 56 199 200 234 240"`. You do not need anything else.
+     - Note that the code always renumbers residues form 1 to N, where N is total number of residues in the whole complex, therefore, take this into account while specifying the residues i.e firt renumber the residues in the same manner so that correct pocket IDs are identified.
 4. **Reference Frame**  
    - Select a representative frame from your trajectory to use for **pharmacophore model generation**.  
    - The pharmacophore hits will correspond to this specific configuration.
