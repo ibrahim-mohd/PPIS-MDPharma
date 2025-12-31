@@ -52,8 +52,9 @@ def main():
 
     # exclude residues
     parser.add_argument('-res_exclude', dest='res_exclude', type=str, default=None, help='residues to exclude for analysis e.g those that already contributes significantly to stabilziation of the complex')
+    parser.add_argument('-pocket_resids', dest='pocket_resids', type=str, default=None, help='pocket residues as space separated resids if known')
     ########
-    parser.add_argument('-cutoff', dest='contact_cutoff', type=float, default=5, help='all residues within this distance of the ligand or pocket atoms are considered for analysis')
+    parser.add_argument('-cutoff', dest='contact_cutoff', type=float, default=5, help='all residues within this distance of the ligand or pocket atoms are considered for analysis. Default is 5 Angstrom')
 
     # Output
     parser.add_argument('-o', dest='pkl_object', type=str, default='combined_analysis.pkl', help='output pickle object')
@@ -72,17 +73,28 @@ def main():
     protein_.residues.resids = np.arange(1, len(protein_.residues.resids) + 1)
     
     if not pocket_id:
-        ligand_name = u.select_atoms("all and not protein").resnames[0]
-        if res_exclude:
-            pocket = u.select_atoms(f"byres protein and not resid {res_exclude} and (around {contact_cutoff} resname {ligand_name})")
+        
+        if  args.pocket_resids: pocket = u.select_atoms(f"protein and resid {args.pocket_resids}")
+            
         else:
-            pocket = u.select_atoms(f"byres protein and (around {contact_cutoff} resname {ligand_name})")
+            
+            ligand_name = u.select_atoms("all and not protein").resnames[0]
+            
+            if res_exclude:
+                pocket = u.select_atoms(f"byres protein and not resid {res_exclude} and (around {contact_cutoff} resname {ligand_name})")
+                
+            else:
+                pocket = u.select_atoms(f"byres protein and (around {contact_cutoff} resname {ligand_name})")
     else:
+        
         if res_exclude:
             pocket = u.select_atoms(f"byres protein and not resid {res_exclude} and (around {contact_cutoff} resname STP and resid {pocket_id})")
         else:
             pocket = u.select_atoms(f"byres protein and (around {contact_cutoff} resname STP and resid {pocket_id})")
+    
+  
 
+        
     # ---------------- SASA & ΔGsolv ---------------- #
     u = mda.Universe(args.tpr_file, args.xtc_file)
     out_ndx = "index.ndx"
