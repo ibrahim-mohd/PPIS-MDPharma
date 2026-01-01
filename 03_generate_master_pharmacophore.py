@@ -64,7 +64,7 @@ def merge_identical_sites(data):
     for p in points:
         name = p.get("name")
         
-        # Only deduplicate H-bond features
+        # Only deduplicate H-bond features and ionc istes as only those can have identical coordinates
         if name in {"HydrogenDonor", "HydrogenAcceptor", "NegativeIon", "PositiveIon"}:
             # Get vector value
             vector_val = p.get("vector")
