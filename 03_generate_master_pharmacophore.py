@@ -48,47 +48,6 @@ def parse_args():
 def distance(r1, r2):
     return np.linalg.norm(r1 - r2)
 
-def merge_identical_hbond_points(data):
-    from copy import deepcopy
-    """
-    Merge HydrogenDonor and HydrogenAcceptor points that share identical
-    x, y, z, and vector coordinates by summing their scores.
-    """    
-    data = deepcopy(data)
-    points = data.get("points", [])
-
-    seen = {}
-    result = []
-
-    for p in points:
-        name = p.get("name")
-        #if p.get("vec") != "null": continue
-        # Only deduplicate H-bond features
-        if name in {"HydrogenDonor", "HydrogenAcceptor", "NegativeIon", "PositiveIon"}:
-            key = (
-                name,
-                p.get("x"),
-                p.get("y"),
-                p.get("z"),
-                p.get("vector"),
-            )
-
-            if key in seen:
-                # Merge scores
-                seen[key]["score"]["score"] += p["score"].get("score", 0)
-
-                if "normed_score" in p["score"]:
-                    seen[key]["score"]["normed_score"] += p["score"].get("normed_score", 0)
-            else:
-                seen[key] = p
-                result.append(p)
-        else:
-            # Keep everything else as it is
-            result.append(p)
-
-    data["points"] = result
-    return data
-
 def merge_identical_sites(data):
     """
     Merge HydrogenDonor and HydrogenAcceptor points that share identical
