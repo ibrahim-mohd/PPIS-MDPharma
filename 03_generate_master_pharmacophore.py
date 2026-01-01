@@ -30,8 +30,11 @@ def parse_args():
  
     parser.add_argument('-o', dest='out_file', type=str, default='master_pharma.json', help='Output JSON file')
 
-        # Solvent residue and atom names
-    
+     
+    # Ion options
+    parser.add_argument('-nname', dest='nname', type=str, default='Cl-', help='anion name')
+    parser.add_argument('-pname', dest='pname', type=str, default='Na+', help='cation name')
+    #   # Solvent residue and atom names
     parser.add_argument('-hsol_name', dest='hsol_name', type=str, default='HW1 HW2', help='atom name of water hydrogens')
     parser.add_argument('-osol_name', dest='osol_name', type=str, default='OW', help='atomname of water oxygens')
     parser.add_argument('-sol_resname', dest='sol_resname', type=str, default='SOL', help='resname of water molecules')
@@ -59,9 +62,9 @@ def merge_identical_hbond_points(data):
 
     for p in points:
         name = p.get("name")
-
+        #if p.get("vec") != "null": continue
         # Only deduplicate H-bond features
-        if name in {"HydrogenDonor", "HydrogenAcceptor"}:
+        if name in {"HydrogenDonor", "HydrogenAcceptor", "NegativeIon", "PositiveIon"}:
             key = (
                 name,
                 p.get("x"),
@@ -78,6 +81,68 @@ def merge_identical_hbond_points(data):
                     seen[key]["score"]["normed_score"] += p["score"].get("normed_score", 0)
             else:
                 seen[key] = p
+                result.append(p)
+        else:
+            # Keep everything else as it is
+            result.append(p)
+
+    data["points"] = result
+    return data
+
+def merge_identical_sites(data):
+    """
+    Merge HydrogenDonor and HydrogenAcceptor points that share identical
+    x, y, z, and vector coordinates by summing their scores.
+    """    
+    from copy import deepcopy
+    
+    data = deepcopy(data)
+    points = data.get("points", [])
+
+    seen = {}
+    result = []
+
+    for p in points:
+        name = p.get("name")
+        
+        # Only deduplicate H-bond features
+        if name in {"HydrogenDonor", "HydrogenAcceptor", "NegativeIon", "PositiveIon"}:
+            # Get vector value
+            vector_val = p.get("vector")
+            
+            # Create a hashable key - ALWAYS ensure vector is converted to tuple if it's a list
+            if isinstance(vector_val, list):
+                # Convert list to tuple for hashability
+                vector_key = tuple(vector_val)
+            elif isinstance(vector_val, tuple):
+                # Tuples are already hashable
+                vector_key = vector_val
+            else:
+                # For strings, None, or other types
+                vector_key = vector_val
+            
+            key = (
+                name,
+                p.get("x"),
+                p.get("y"),
+                p.get("z"),
+                vector_key
+            )
+
+            # Try to use the key - if it's not hashable, skip deduplication
+            try:
+                if key in seen:
+                    # Merge scores
+                    seen[key]["score"]["score"] += p["score"].get("score", 0)
+
+                    if "normed_score" in p["score"]:
+                        seen[key]["score"]["normed_score"] += p["score"].get("normed_score", 0)
+                else:
+                    seen[key] = p
+                    result.append(p)
+            except TypeError:
+                # Key is not hashable (e.g., vector is still a list somehow)
+                # Skip deduplication for this point
                 result.append(p)
         else:
             # Keep everything else as it is
@@ -192,6 +257,23 @@ def get_hbond_donors(site_index, u, d_cutoff=4, angle_cutoff=150, min_angle=100,
     direction = hbond_donor.positions[0] - water_acceptor_oxygen.positions[0]
     direction /= np.linalg.norm(direction)
     return [float(x) for x in water_acceptor_oxygen.positions[0]], [float(x) for x in direction]
+
+def get_positive_negative_position(u, site, site_type_protein, max_cutoff=5, nname="Cl-",pname="Na+"):
+    # For an accurate psotion assignemtn we see if there are any boudn in in the current frame
+    # This is very useful becasue sometimes many sites are coordinated to teh same ion in which case
+    # this funtion assigns identical positions which are then later merged into single site with sum of scores
+    # ion name
+    ion_name = pname if site_type_protein == "cation" else nname
+    ion_site = u.select_atoms (f"index {site}")
+    ion_selection  = u.select_atoms (f"name {ion_name}")
+    ion_position = None # if we do not find any posotin we return None
+    
+    for cutoff in np.arange (2,max_cutoff+0.1,0.1):
+        pairs, _ = mda.lib.distances.capped_distance(ion_site, ion_selection, max_cutoff=cutoff, box=u.dimensions)
+        if len (pairs) !=0:
+            ion_position = list(ion_selection.positions [pairs[0][1]])
+            break   
+    return  ion_position
 
 
 def pharmer_element_template(site_type: str, position: list, score: dict = None, chainID: str = "",
@@ -312,6 +394,13 @@ def main():
             pos = get_pharmacophore_position(position, p_geometric_center)
             pos = [float(x) for x in pos]
             vector = "null"
+
+            # we position positive and negative sites first by checking if there are any bound ions in the 
+            # current frame. If not we simply used the above translated one
+            if site_type_protein in ['cation', 'anion']:
+                ion_position = get_positive_negative_position (u, site, site_type_protein, nname=args.nname,pname=args.pname)
+                if ion_position is not None: pos = ion_position
+                
             if site_type_protein == 'donor':
                 pos_hb, direction = get_hbond_donors(site, u)
                 if pos_hb is None:
@@ -386,10 +475,11 @@ def main():
                                                vector=vector)
             data["points"].append(element)
 
-    if not args.hbond_direction:
+    #if not args.hbond_direction:
         # for cases where same water molecule is detected for hbond site position. so if hbond direction is not included
         # these site becomes identical. We merge scuh site by summing up their scores
-        data = merge_identical_hbond_points (data)
+    # incase sites are identical then merge
+    data = merge_identical_sites (data)
         
     print_summary(data, os.path.dirname(args.out_file))
     for pos in exclusion_sites.positions:

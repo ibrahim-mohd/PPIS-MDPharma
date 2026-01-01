@@ -66,18 +66,17 @@ def main():
     pocket_id = args.pocket_id
     res_exclude = args.res_exclude
     contact_cutoff = args.contact_cutoff
-    u = mda.Universe(coord_file)
-    # to renumber protien resids from 1 to N in a continous way incase for if the resid is reset for different chains ie. 
-    # resid starts from 1 for each chain.  
-    protein_ = u.select_atoms("protein")
-    protein_.residues.resids = np.arange(1, len(protein_.residues.resids) + 1)
-    
-    if not pocket_id:
+
+    # if pocket resid s are given we do nto need to load the pocket identification file here
+    if not args.pocket_resids:
+        u = mda.Universe(coord_file)
+        # to renumber protien resids from 1 to N in a continous way incase for if the resid is reset for different chains ie. 
+        # resid starts from 1 for each chain.  
+        protein_ = u.select_atoms("protein")
+        protein_.residues.resids = np.arange(1, len(protein_.residues.resids) + 1)
         
-        if  args.pocket_resids: pocket = u.select_atoms(f"protein and resid {args.pocket_resids}")
-            
-        else:
-            
+        if not pocket_id :
+                
             ligand_name = u.select_atoms("all and not protein").resnames[0]
             
             if res_exclude:
@@ -85,18 +84,26 @@ def main():
                 
             else:
                 pocket = u.select_atoms(f"byres protein and (around {contact_cutoff} resname {ligand_name})")
-    else:
-        
-        if res_exclude:
-            pocket = u.select_atoms(f"byres protein and not resid {res_exclude} and (around {contact_cutoff} resname STP and resid {pocket_id})")
+            pocket_resids = " ".join (str(x) for x in pocket.residues.resids)
         else:
-            pocket = u.select_atoms(f"byres protein and (around {contact_cutoff} resname STP and resid {pocket_id})")
-    
-  
+            
+            if res_exclude:
+                pocket = u.select_atoms(f"byres protein and not resid {res_exclude} and (around {contact_cutoff} resname STP and resid {pocket_id})")
+            else:
+                pocket = u.select_atoms(f"byres protein and (around {contact_cutoff} resname STP and resid {pocket_id})")
+        
+            pocket_resids = " ".join (str(x) for x in pocket.residues.resids)
 
         
     # ---------------- SASA & ΔGsolv ---------------- #
     u = mda.Universe(args.tpr_file, args.xtc_file)
+
+    # If: also not here not renumbering is needed, MDAnalysis does the for file loaded with the tpr file
+    if args.pocket_resids: 
+        pocket =   u.select_atoms(f"byres protein and resid {args.pocket_resids}")
+    else:
+        pocket =   u.select_atoms(f"byres protein and resid {pocket_resids}")
+        
     out_ndx = "index.ndx"
     out_sasa = "sasa.xvg"
     out_gsolv = "dgsolv.xvg"
@@ -211,17 +218,19 @@ def main():
     NA = u.select_atoms(f"name {args.pname}")
     CL = u.select_atoms(f"name {args.nname}")
     ion_sites = pocket.select_atoms("name O* N*")
-
+    pocket_indices = " ".join (str(x) for x in ion_sites.indices)
+    ion_sites = u.select_atoms(f"index {pocket_indices}")
+    
     residue_dict_na = {str(i): dict(name=n, count=0) for i, n in zip(ion_sites.indices, ion_sites.names)}
     residue_dict_cl = {str(i): dict(name=n, count=0) for i, n in zip(ion_sites.indices, ion_sites.names)}
 
     for _ in tqdm(u.trajectory[begin_frame:end_frame:args.frame_skip]):
-        pairs, _ = mda.lib.distances.capped_distance(ion_sites, NA, max_cutoff=3, box=u.dimensions)
+        pairs, _ = mda.lib.distances.capped_distance(ion_sites, NA, max_cutoff=4, box=u.dimensions)
         for i_res, _ in pairs:
             index = ion_sites.indices[i_res]
             residue_dict_na[str(index)]['count'] += 1
 
-        pairs, _ = mda.lib.distances.capped_distance(ion_sites, CL, max_cutoff=3, box=u.dimensions)
+        pairs, _ = mda.lib.distances.capped_distance(ion_sites, CL, max_cutoff=4, box=u.dimensions)
         for i_res, _ in pairs:
             index = ion_sites.indices[i_res]
             residue_dict_cl[str(index)]['count'] += 1
