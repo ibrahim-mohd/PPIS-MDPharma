@@ -225,10 +225,10 @@ If there is only one database path, one can use the `-d` flag with path to datab
     │   ├── json/
     │   └── sdf/
     └── ...                           # Additional subpharmacophore folders
-     
 
-6. **Scoring hits by calculating buried surface area**
-   
+     
+#### 05. Scoring hits by calculating buried surface area
+ 
  The above ligands are scored by calculating the buried surface area with each protein partner.
 ```bash
 python 06_score_hits.py -sdf $sdf_path -s $tpr_file -c $gro_file -o ligand_scores.pkl
