@@ -178,18 +178,6 @@ python 03_generate_master_pharmacophore.py \
 ```
 Note that `mol.gro` is our reference frame. If `-hbond_direction` is set to 0, Hbond directions are not taken into account, one obtain more hits that is not super depedenent on the current conformation. `-ignore_nowater_hbond` if set to 1 ignores Hbond assignments for sites for which no water in Hbond geometry is found int he current frame (`mol.gro`), otherwise we use a simple translation towards pocket center for Hbond assignment. 
 
-4. **Sub-pharmacophore generation (Subsets of master pharmacophore)**
-
-   Generate subsets of master pharmacophore as: first create an output directory named (let's say) ``pharma``
-
-```bash
-mkdir ./pharma
-```
-   ``` bash
-   python 04_generate_sub_pharmacophores.py -j master_pharmacophore.json -min_node 4 -top 30 -ntop_limit 50 -o ./pharma
-   ```
-Where we generate ``max (30 %, 50)`` number of graphs/models
-
 5. **Perform pharmacophore screening**
    
 We have everything we need to perform the screening in a local database. Before proceeding make sure to have a local **pharmer compatible** database ready. Refer to the [Database creation section](#Create-local-database-of-ligands-with-pharmer). 
