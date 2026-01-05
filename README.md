@@ -190,12 +190,12 @@ python 04_generate_graph_screen.py \
   -top 100 \
   -ntop_limit 50000 \
   -p_exe /usr/local/bin/pharmer.static \
-  -df database_paths.txt \
+  -df $PWD/database.dat \
   -np 12 \
   -max 10000 \
-  -o /path/to/output_dir \
-
+  -o $PWD/search-output \
 ```
+
 Where, we provided the path to database, the pharmacophores graphs path (i.e the folder with n* like folder e.g n8 n7 n3 etc), the output folder (it creates if not there) and the number of concurrent workers (parallel threads). Apart from the hits, a screening summary file ``screening_summary.dat`` is also produced. The contents of `databse.dat` files should look like:
 `database.dat` each line contains path to a database
   ```
@@ -205,7 +205,7 @@ Where, we provided the path to database, the pharmacophores graphs path (i.e the
   /home/user/DB4
   /home/user/DB5
   ```
-
+If there is only one database path, one can use the `-d` flag with path to database as argument.
 6. **Scoring hits by calculating buried surface area**
    
  The above ligands are scored by calculating the buried surface area with each protein partner.
