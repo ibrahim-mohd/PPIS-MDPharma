@@ -204,7 +204,29 @@ The contents of `databse.dat` files should look like:
   /home/user/DB4
   /home/user/DB5
   ```
-If there is only one database path, one can use the `-d` flag with path to database as argument.
+If there is only one database path, one can use the `-d` flag with path to database as argument. A successfu screening output looks like:
+   
+    search-output/
+    ├── screening_summary.dat         # Summary of the screening results
+    ├── generate_and_screen.log       # Log file of the generation and screening process
+    ├── n7/                           # Folder for pharmacophore with sites 7
+    │   ├── json/                     # JSON files of sub-pharmacophore that resulted in hits. These files are ranked by their scores.
+    │   │   ├── n7_1.json
+    │   │   ├── n7_12.json
+    │   │   └── n7_xxx.json           # xxx denotes the rank for the model, lower the number higher its rank
+    │   └── sdf/                      # SDF files containing the hits 
+    │       ├── DB1_n7_1.sdf          # SDF files are name as {database_name}_{model name}_{model rank}.sdf
+    │       ├── DB4_n7_12.sdf
+    │       └── DB1_n7_xxx.sdf
+    ├── n6/  # Folder for pharmacophore with sites 7 etc
+    │   ├── json/
+    │   └── sdf/
+    ├── n5/
+    │   ├── json/
+    │   └── sdf/
+    └── ...                           # Additional subpharmacophore folders (n4, n3, etc.)
+     
+
 6. **Scoring hits by calculating buried surface area**
    
  The above ligands are scored by calculating the buried surface area with each protein partner.
