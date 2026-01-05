@@ -137,25 +137,6 @@ same as before but pocket ID needs to be specified (other than 0)
    -cutoff 5.0 \
    -o combined_analysis.pkl
 ```
-python combined_pocket_analysis.py \
-  -fl protein_lig.gro \
-  -f mol.xtc \
-  -s npt.tpr \
-  -pocket_id 0 \
-  -b 0 \
-  -e -1 \
-  -skip 1 \
-  -nname Cl- \
-  -pname Na+ \
-  -hsol_name "HW1 HW2" \
-  -osol_name OW \
-  -sol_resname SOL \
-  -res_exclude "10 25 78" \
-  -pocket_resids "45 47 89 120" \
-  -cutoff 5 \
-  -o combined_analysis.pkl
-
-
 3. **Feature selection (Optional)**
 
    Plot the above features and apply thresholds to select features. It is best to keep total number of features less than 20. Note  this part is optional, it only outputs a figure so that one has an idea of what threshold to apply. If this part is skipped, you can start with default thresholds are 35, 0.2 and 25 for H-bond donor/acceptor, hydrophobic/aromatic and negative/positive features for the next step. 
