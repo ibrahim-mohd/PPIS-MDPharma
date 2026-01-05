@@ -258,7 +258,7 @@ However, I recommend not mixing up results with different pharmacophore modeles 
 #### 07. Setup simulation using AMBER ff14 or ff19 forcefield usign Gromacs 
 This script fully automates setting up of protein ligand simulation or just protein in water. 
 ```bash
-python setup_simulations.py \
+python 07_setup_simulation_protein_ligand_ff19_ff14.py \
   -p $PWD \
   -f $PWD/protein.pdb \
   -ff ff14SB \
