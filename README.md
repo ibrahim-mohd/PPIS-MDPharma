@@ -196,7 +196,15 @@ python 04_generate_graph_screen.py \
   -o /path/to/output_dir \
 
 ```
-Where, we provided the path to database, the pharmacophores graphs path (i.e the folder with n* like folder e.g n8 n7 n3 etc), the output folder (it creates if not there) and the number of concurrent workers (parallel threads). Apart from the hits, a screening summary file ``screening_summary.dat`` is also produced.
+Where, we provided the path to database, the pharmacophores graphs path (i.e the folder with n* like folder e.g n8 n7 n3 etc), the output folder (it creates if not there) and the number of concurrent workers (parallel threads). Apart from the hits, a screening summary file ``screening_summary.dat`` is also produced. The contents of `databse.dat` files should look like:
+`database.dat` each line contains path to a database
+  ```
+  /home/user/DB1
+  /home/user/DB2
+  /home/user/DB3
+  /home/user/DB4
+  /home/user/DB5
+  ```
 
 6. **Scoring hits by calculating buried surface area**
    
