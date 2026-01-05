@@ -195,8 +195,7 @@ python 04_generate_graph_screen.py \
   -max 10000 \
   -o $PWD/search-output \
 ```
-
-Where, we provided the path to database, the pharmacophores graphs path (i.e the folder with n* like folder e.g n8 n7 n3 etc), the output folder (it creates if not there) and the number of concurrent workers (parallel threads). Apart from the hits, a screening summary file ``screening_summary.dat`` is also produced. The contents of `databse.dat` files should look like:
+The contents of `databse.dat` files should look like:
 `database.dat` each line contains path to a database
   ```
   /home/user/DB1
