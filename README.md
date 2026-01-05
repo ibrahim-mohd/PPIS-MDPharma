@@ -45,8 +45,7 @@ Before proceeding, ensure you have the following files prepared:
 
    **Option 1 — From known pocket residue IDs**
    - You need the **residue IDs of the pocket residues**.
-   - Let’s say the resids are `12 34 56 199 200 234 240`.  
-     Simply use the `-pocket_resids` flag and provide the resids as space-separated strings: `-pocket_resids "12 34 56 199 200 234 240"`
+   - Let’s say the resids are `12 34 56 199 200 234 240`. Simply use the `-pocket_resids` flag and provide the resids as space-separated strings: `-pocket_resids "12 34 56 199 200 234 240"`
      
    - **Important:** The code always renumbers protein residues from `1` to `N`, where `N` is the total number of residues in the complex. Make sure to renumber residues accordingly before specifying pocket IDs.
 
