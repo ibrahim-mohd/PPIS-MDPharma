@@ -258,7 +258,13 @@ python  06_extract_top_ligands.py \
   -skey bsa_harm
 ```
 or if you have multiple score files from different pharmacophore models:
-
+ | Flag          | Value                           | Description                                                       |
+| ------------- | ------------------------------- | ----------------------------------------------------------------- |
+| `-topN`        | `10`                           | Extract this many ligands from each subpharmacophore hits        |
+| `-Ngraph` | `10`                         | Consider only the this many top subpharmacophores   |
+| `-skey`      | `bsa_harm` | Use harmonic mean of BSA as ranking metric. Other option is `bsa_ab` i.e total BSA                          |
+  
+ 
 ```bash
 python 07_extract_top_ligands.py -i ligand_scores1.pkl ligand_scores2.pkl ligand_scores3.pkl -topN 40 -Ngraph 20 -odir $PWD/final-results
 ```
