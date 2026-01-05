@@ -159,7 +159,7 @@ Plot the above features and apply thresholds to select features. It is best to k
  Generate pharmacophores using the above obtained thresholds:
 
 ```bash
-python generate_pharmacophore.py \
+python 03_generate_master_pharmacophore.py \
   -s $PWD/npt.tpr \
   -c $PWD/mol.gro \
   -p $PWD/combined_analysis.pkl \
