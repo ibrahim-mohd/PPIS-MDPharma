@@ -231,9 +231,13 @@ If there is only one database path, one can use the `-d` flag with path to datab
  
  The above ligands are scored by calculating the buried surface area with each protein partner.
 ```bash
-python 06_score_hits.py -sdf $sdf_path -s $tpr_file -c $gro_file -o ligand_scores.pkl
+python calculate_bsa.py \
+  -sdf $PWD/search-output/n6/sdf \
+  -s $PWD/npt.tpr \
+  -c $PWD/mol.gro \
+  -o $PWD/ligand_score_n6.pkl
 ```
-Where $sdf_path is the path to pharmer output ``SDF`` files. For different pharmacophore model e.g n7, n6 or n5, one creates seperate scoring files. The code will go through all the ``.sdf`` file in the folder. The ``TPR`` and ``GRO`` files must also be provided with the ``GRO`` file being the MD frame for which the pharmacophores hits were obtained.
+For different pharmacophore model e.g n7, n6 or n5, one creates seperate scoring files. The code will go through all the ``.sdf`` file in the folder. The ``TPR`` and ``GRO`` files must also be provided with the ``GRO`` file being the MD frame for which the pharmacophores hits were obtained.
 
 7. **Select top hits across all models and prepare for simulation**
 ```bash
