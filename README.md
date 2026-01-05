@@ -142,7 +142,16 @@ One can also exclude certain residues using the ``-res_exclude`` flag.
 
    Plot the above features and apply thresholds to select features. It is best to keep total number of features less than 20. Note  this part is optional, it only outputs a figure so that one has an idea of what threshold to apply. If this part is skipped, you can start with default thresholds are 35, 0.2 and 25 for H-bond donor/acceptor, hydrophobic/aromatic and negative/positive features for the next step. 
 ```bash
-python 02_feature_selection_plot.py -p all_features.pkl -c $PWD/mol.gro -s $PWD/npt.tpr -acceptor_th 35 -donor_th 35 -dG_th 0.2 -ion_th 25
+python plot_features.py \
+  -p output_features.pkl \
+  -c mol.gro \
+  -s npt.tpr \
+  -acceptor_th 30 \
+  -donor_th 30 \
+  -dG_th 0.2 \
+  -ion_th 25 \
+  -figsize 12 12 \
+  -o features.png
 ```
 
 3. **Master pharmacophore model generation**
