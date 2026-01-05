@@ -96,10 +96,27 @@ python 02_feature_selection_plot.py -p all_features.pkl -c $PWD/mol.gro -s $PWD/
 
 3. **Master pharmacophore model generation**
    
-   Generate pharmacophores using the above obtained thresholds
-   ```bash
-   python 03_generate_master_pharmacophore.py -p all_features.pkl -c $PWD/mol.gro -s $PWD/npt.tpr -acceptor_th 35 -donor_th 35 -dG_th 0.2 -ion_th 25 -o master_pharmacophore.json
-   ```
+ Generate pharmacophores using the above obtained thresholds:
+
+```bash
+python generate_pharmacophore.py \
+  -s $PWD/npt.tpr \
+  -c $PWD/mol.gro \
+  -p $PWD/combined_analysis.pkl \
+  -dG_th 0.20 \
+  -acceptor_th 35.0 \
+  -donor_th 35.0 \
+  -ion_th 25 \
+  -o $PWD/master_pharma.json \
+  -nname Cl- \
+  -pname Na+ \
+  -hsol_name "HW1 HW2" \
+  -osol_name OW \
+  -sol_resname SOL \
+  -hbond_direction 1 \
+  -ignore_nowater_hbond 0  # ignore H-bond assignment if no water is found in the current frame
+```
+
 Note that `mol.gro` is our reference frame.
 4. **Sub-pharmacophore generation (Subsets of master pharmacophore)**
 
