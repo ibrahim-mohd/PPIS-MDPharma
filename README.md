@@ -59,7 +59,7 @@ Before proceeding, ensure you have the following files prepared:
    - If no ligand-bound structure is available, you can use **[Fpocket](https://github.com/Discngine/fpocket)** to identify potential binding pockets.
    - Supply the **Fpocket output `*_out.pdb` file**, which includes the protein and all detected pockets.
    - You will also need the **residue ID(s)** corresponding to the pocket of interest.
-   - The script `00_identify_pocket_conf.py` automates this process and selects the MD frame with the most open interface pocket.
+   - The script `00_identify_pocket_conf.py` automates this process and selects the MD frame with the most open interface pocket and also prints the pocket ID that you need  in the next step if this method is used.
 
      Run:
      ```bash
@@ -75,7 +75,7 @@ Before proceeding, ensure you have the following files prepared:
 
 4. **Reference Frame**  
    - Select a representative frame from your trajectory to use for **pharmacophore model generation**.  
-   - The pharmacophore hits will correspond to this specific configuration.
+   - The pharmacophore hits will correspond to this specific configuration i.e all the hits are docked in this particular conformation.
    - You can also use one of the Fpocket configurations that ``00_identify_pocket_conf.py`` outputs.
    - This frame should correspond to a full MD frame with protein, water and ions etc.
 
