@@ -118,7 +118,7 @@ Before proceeding, ensure you have the following files prepared:
      -o combined_analysis.pkl
   ```
    - ##### Case-3: Fpocket output file (`protein_out.pdb`):
-  same as before but pocket ID needs to be specified (other than 0)
+      Same as before but pocket ID needs to be specified (other than 0). Note that in this case sometimes we end up with too many residues, one can also exclude certain residues using the ``-res_exclude`` flag.
   
      ```bash
      python 01_analyse_pharmacophore_features.py \
@@ -137,7 +137,7 @@ Before proceeding, ensure you have the following files prepared:
      -cutoff 5.0 \
      -o combined_analysis.pkl
   ```
-One can also exclude certain residues using the ``-res_exclude`` flag.
+
 02. **Feature selection (Optional)**
 
    Plot the above features and apply thresholds to select features. It is best to keep total number of features less than 20. Note  this part is optional, it only outputs a figure so that one has an idea of what threshold to apply. If this part is skipped, you can start with default thresholds are 35, 0.2 and 25 for H-bond donor/acceptor, hydrophobic/aromatic and negative/positive features for the next step. 
