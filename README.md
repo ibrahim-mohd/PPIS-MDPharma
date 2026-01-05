@@ -42,28 +42,35 @@ Before proceeding, ensure you have the following files prepared:
    - The `.xtc` and `.tpr` files from the MD trajectory. The complex should be whole with no jumping across the box boundary before usage e.g you can use ``gmx trjconv`` with ``pbc mol`` option. You can use the `./useful-scripts/remove_jumps_xtc.py` script to achieve that, it just takes the `tpr` and `xtc` file as input and outputs a new trajectory with the periodic jumps corrected.
 2. **Pocket Identification**  
    There are three possible approaches to identify the pocket residue for analysis:
-   
-     **Option 1 — From known pocket residue IDs**
-       - You need the **residue IDs of the Pocket residues**
-       - Lets say the resids are `12 34 56 199 200 234 240`, then simply use the `-pocket_resids` flag and provide the resids as space seperated strings e.g `-pocket_resid "12 34 56 199 200 234 240"`. You do not need anything else.
-       - Note that the code always renumbers residues form 1 to N, where N is total number of residues in the whole complex, therefore, take this into account while specifying the residues i.e firt renumber the residues in the same manner so that correct pocket IDs are identified.
 
-       
-     **Option 2 — Existing Complex**  
-     - If you already have a **protein–protein–ligand complex**, you can use it directly.  
-     - Any ligand is acceptable, as long as it is **docked in the pocket of interest**.  
-     - Provide the `.pdb` or `.gro` file of the **entire complex** (protein–protein–ligand).
+   **Option 1 — From known pocket residue IDs**
+   - You need the **residue IDs of the pocket residues**.
+   - Let’s say the resids are `12 34 56 199 200 234 240`.  
+     Simply use the `-pocket_resids` flag and provide the resids as space-separated strings: `-pocket_resids "12 34 56 199 200 234 240"`
+     
+   - **Important:** The code always renumbers protein residues from `1` to `N`, where `N` is the total number of residues in the complex. Make sure to renumber residues accordingly before specifying pocket IDs.
 
-  
-     **Option 3 — Detect Pockets Using Fpocket**  
-     - If no ligand-bound structure is available, you can use **[Fpocket](https://github.com/Discngine/fpocket)** to identify potential binding pockets.  
-     - Supply the **Fpocket output `*_out.pdb` file**, which includes the protein and all detected pockets.  
-     - You will also need the **residue ID/s** corresponding to the pocket of interest.
-     - The script ``00_identify_pocket_conf.py`` does this in a convinient manner and selects MD frame which has more open pocket at the interface. Run the following command:
-      ```bash
-        python 00_identify_pocket_conf.py -f $xtc_file -s $tpr_file -n 500 -b 20000 -on 5 -keep 0 -out_path $PWD/fpocket-confs
-      ```
-      Where, ``-n 500`` means we use 500 frames from the trajectory to detect pockets and choose top 5 set by ``-on 5``. The 5 configurations have highest value of harmonic mean of buried surface area of pocket with both protein partners.
+   **Option 2 — Existing Complex**
+   - If you already have a **protein–protein–ligand complex**, you can use it directly.
+   - Any ligand is acceptable, as long as it is **docked in the pocket of interest**.
+   - Provide the `.pdb` or `.gro` file of the **entire complex** (protein–protein–ligand).
+
+   **Option 3 — Detect Pockets Using Fpocket**
+   - If no ligand-bound structure is available, you can use **[Fpocket](https://github.com/Discngine/fpocket)** to identify potential binding pockets.
+   - Supply the **Fpocket output `*_out.pdb` file**, which includes the protein and all detected pockets.
+   - You will also need the **residue ID(s)** corresponding to the pocket of interest.
+   - The script `00_identify_pocket_conf.py` automates this process and selects the MD frame with the most open interface pocket.
+
+     Run:
+     ```bash
+     python 00_identify_pocket_conf.py -f $xtc_file -s $tpr_file -n 500 -b 20000 -on 5 -keep 0 -out_path $PWD/fpocket-confs
+     ```
+
+     Where:
+     - `-n 500` → number of frames used for pocket detection
+     - `-on 5` → top 5 pocket configurations selected
+     - Selection is based on the **harmonic mean of buried surface area** with both protein partners
+
    
 
 4. **Reference Frame**  
