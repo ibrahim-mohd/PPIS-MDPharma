@@ -18,10 +18,10 @@ def parse_args():
     
     ##################### Thresholds
     
-    parser.add_argument('-acceptor_th', dest='acceptor_threshold', type=float, default=40, help='acceptor threshold')
-    parser.add_argument('-donor_th', dest='donor_threshold', type=float, default=40, help='acceptor threshold')
-    parser.add_argument('-dG_th', dest='dG_threshold', type=float, default=0.4, help='ΔG threshold,')
-    parser.add_argument('-ion_th', dest='ion_threshold', type=float, default=30, help='difference between number of cations and anions')
+    parser.add_argument('-acceptor_th', dest='acceptor_threshold', type=float, default=30, help='acceptor threshold')
+    parser.add_argument('-donor_th', dest='donor_threshold', type=float, default=30, help='acceptor threshold')
+    parser.add_argument('-dG_th', dest='dG_threshold', type=float, default=0.2, help='ΔG threshold,')
+    parser.add_argument('-ion_th', dest='ion_threshold', type=float, default=25, help='difference between number of cations and anions')
 
     # Figure options
     parser.add_argument('-o',dest='out_file', type=str, default="features.png", help="Output image file (e.g. plot.png). If None, shows figure.")
