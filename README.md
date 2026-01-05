@@ -248,7 +248,7 @@ python 05_score_hits.py \
 ```
 For different pharmacophore model e.g n7, n6 or n5, one creates seperate scoring files. The code will go through all the ``.sdf`` file in the folder. The ``TPR`` and ``GRO`` files must also be provided with the ``GRO`` file being the MD frame for which the pharmacophores hits were obtained.
 
-#### 06. Select top hits across all models and prepare for simulation 
+#### 06. Extract top hits across all models and prepare for simulation 
 ```bash
 python  06_extract_top_ligands.py \
   -i $PWD/ligand_score_n6.pkl \
