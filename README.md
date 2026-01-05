@@ -53,7 +53,7 @@ Before proceeding, ensure you have the following files prepared:
    - If you already have a **protein–protein–ligand complex**, you can use it directly.
    - Any ligand is acceptable, as long as it is **docked in the pocket of interest**.
    - Provide the `.pdb` or `.gro` file of the **entire complex** (protein–protein–ligand).
-   - **Important:** Here the number of residues in the provided complex should be same as in the simulated protein. If the simulated protein is capped with ACE or NME residues, cap this complex first too and use the capped one. You can cap very quickly usign the script at 
+   - **Important:** Here the number of residues in the provided complex should be same as in the simulated protein. If the simulated protein is capped with ACE or NME residues, cap this complex first too and use the capped one. You can cap very quickly usign the script at **[Add NME/ACE Caps](https://github.com/ibrahim-mohd/Add-NME-ACE-residues-to-protein-terminal-residues)**
 
    **Option 3 — Detect Pockets Using Fpocket**
    - If no ligand-bound structure is available, you can use **[Fpocket](https://github.com/Discngine/fpocket)** to identify potential binding pockets.
