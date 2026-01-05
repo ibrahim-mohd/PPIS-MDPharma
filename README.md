@@ -154,7 +154,7 @@ Plot the above features and apply thresholds to select features. It is best to k
     -o $PWD/features.png
   ```
 
-3. **Generate master pharmacophore model**
+#### 03. Generate master pharmacophore model
    
  Generate pharmacophores using the above obtained thresholds:
 
