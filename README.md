@@ -197,19 +197,15 @@ python 04_generate_graph_screen.py \
 ```
  | Flag          | Value                           | Description                                                       |
 | ------------- | ------------------------------- | ----------------------------------------------------------------- |
-| `-j`          | `master_pharma.json`            | Master pharmacophore from previous te                             |
-| `-min_node`   | `6`                             | Minimum number of nodes in each subpharmacophore                  |
-| `-max_node`   | `10`                            | Maximum number of nodes in each subpharmacophore                  |
-| `-top`        | `100`                           | Percentage of top-ranked pharmacophore to screen. E.g f           |
-| `-ntop_limit` | `50000`                         | Upper limit on the number of pharmacophore models to process for each sub-model     |
+| `-top`        | `100`                           | Percentage of subpharmacophore for a given node to screen.            |
+| `-ntop_limit` | `50000`                         | If total number of subpharmacophroe in a given node is more than this limit only screen this many. This limit is for each node individually   |
 | `-p_exe`      | `/usr/local/bin/pharmer.static` | Full path to the Pharmer executable                               |
 | `-df`         | `database.dat`                  | Text file listing database paths (one per line)                   |
 | `-np`         | `12`                            | Number of parallel workers (threads) used for screening           |
 | `-max`        | `10000`                         | Stop screening once total hits exceed this number                 |
  
 
-The contents of `databse.dat` files should look like:
-`database.dat` each line contains path to a database
+The contents of `databse.dat` files should look like: `database.dat` each line contains path to a database
   ```
   /home/user/DB1
   /home/user/DB2
