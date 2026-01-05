@@ -197,7 +197,7 @@ python 04_generate_graph_screen.py \
 ```
  | Flag          | Value                           | Description                                                       |
 | ------------- | ------------------------------- | ----------------------------------------------------------------- |
-| `-top`        | `100`                           | Percentage of subpharmacophore for a given node to screen.            |
+| `-top`        | `100`                           | Percentage of top subpharmacophore for a given node to screen.        |
 | `-ntop_limit` | `50000`                         | If total number of subpharmacophroe in a given node is more than this limit only screen this many. This limit is for each node individually   |
 | `-p_exe`      | `/usr/local/bin/pharmer.static` | Full path to the Pharmer executable                               |
 | `-df`         | `database.dat`                  | Text file listing database paths (one per line)                   |
