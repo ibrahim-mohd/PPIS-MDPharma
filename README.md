@@ -254,6 +254,9 @@ or if you have multiple score files from different pharmacophore models:
 python 07_extract_top_ligands.py -i ligand_scores1.pkl ligand_scores2.pkl ligand_scores3.pkl -topN 40 -Ngraph 20 -odir $PWD/final-results
 ```
 However, I recommend not mixing up results with different pharmacophore modeles with different number of features. To quickly set up simulations, refer to the ./useful/scripts/setup_simulation_protein_ligand_ff19_ff14.py script, which automates the preparation of protein–protein and protein–ligand systems.
+
+#### 06. Setup simulation using AMBER ff14 or ff19 forcefield usign Gromacs 
+
 ## References
 
 If you find this useful please cite:
