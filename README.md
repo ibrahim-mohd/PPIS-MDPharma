@@ -183,7 +183,22 @@ Note that `mol.gro` is our reference frame. If `-hbond_direction` is set to 0, H
 We have everything we need to perform the screening in a local database. Before proceeding make sure to have a local **pharmer compatible** database ready. Refer to the [Database creation section](#Create-local-database-of-ligands-with-pharmer). 
 
 ```bash
-python 05_perform_screening.py -d $database_path -i $PWD/pharma -o $PWD/search-output -max 10000 -np 4
+python generate_subpharmacophores.py \
+  -j master_pharmacophore.json \
+  -min_node 6 \
+  -max_node 12 \
+  -top 100 \
+  -ntop_limit 50000 \
+  -o /path/to/output_dir \
+  -p_exe /usr/local/bin/pharmer.static \
+  -df database_paths.txt \
+  -d /path/to/database1 \
+  -d /path/to/database2 \
+  -np 4 \
+  -e sdf \
+  -max 10000 \
+  -v
+
 ```
 Where, we provided the path to database, the pharmacophores graphs path (i.e the folder with n* like folder e.g n8 n7 n3 etc), the output folder (it creates if not there) and the number of concurrent workers (parallel threads). Apart from the hits, a screening summary file ``screening_summary.dat`` is also produced.
 
