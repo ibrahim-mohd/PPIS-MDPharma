@@ -40,15 +40,19 @@ Before proceeding, ensure you have the following files prepared:
 
 1. **Trajectory Files**  
    - The `.xtc` and `.tpr` files from the MD trajectory. The complex should be whole with no jumping across the box boundary before usage e.g you can use ``gmx trjconv`` with ``pbc mol`` option. You can use the `./useful-scripts/remove_jumps_xtc.py` script to achieve that, it just takes the `tpr` and `xtc` file as input and outputs a new trajectory with the periodic jumps corrected.
-2. **Structure File for Pocket Identification**  
-   You need a `.pdb` or `.gro` file to identify the binding pocket at the interface or need to know the residue ID of pocket residues. There are three possible approaches:
-
-   **Option 1 — Existing Complex**  
+2. **Pocket Identification**  
+   There are three possible approaches to identify the pocket residue for analysis:  
+   **Option 1 — From known pocket residue IDs**
+     - You need the **residue IDs of the Pocket residues**
+     - Lets say the resids are `12 34 56 199 200 234 240`, then simply use the `-pocket_resids` flag and provide the resids as space seperated strings e.g `-pocket_resid "12 34 56 199 200 234 240"`. You do not need anything else.
+     - Note that the code always renumbers residues form 1 to N, where N is total number of residues in the whole complex, therefore, take this into account while specifying the residues i.e firt renumber the residues in the same manner so that correct pocket IDs are identified.
+     - 
+   **Option 2 — Existing Complex**  
    - If you already have a **protein–protein–ligand complex**, you can use it directly.  
    - Any ligand is acceptable, as long as it is **docked in the pocket of interest**.  
    - Provide the `.pdb` or `.gro` file of the **entire complex** (protein–protein–ligand).
 
-   **Option 2 — Detect Pockets Using Fpocket**  
+   **Option 3 — Detect Pockets Using Fpocket**  
    - If no ligand-bound structure is available, you can use **[Fpocket](https://github.com/Discngine/fpocket)** to identify potential binding pockets.  
    - Supply the **Fpocket output `*_out.pdb` file**, which includes the protein and all detected pockets.  
    - You will also need the **residue ID/s** corresponding to the pocket of interest.
@@ -58,10 +62,7 @@ Before proceeding, ensure you have the following files prepared:
     ```
     Where, ``-n 500`` means we use 500 frames from the trajectory to detect pockets and choose top 5 set by ``-on 5``. The 5 configurations have highest value of harmonic mean of buried surface area of pocket with both protein partners.
    
-   **Option 3 — From known pocket residue IDs**
-     - You need the **residue IDs of the Pocket residues**
-     - Lets say the resids are `12 34 56 199 200 234 240`, then simply use the `-pocket_resids` flag and provide the resids as space seperated strings e.g `-pocket_resid "12 34 56 199 200 234 240"`. You do not need anything else.
-     - Note that the code always renumbers residues form 1 to N, where N is total number of residues in the whole complex, therefore, take this into account while specifying the residues i.e firt renumber the residues in the same manner so that correct pocket IDs are identified.
+
 4. **Reference Frame**  
    - Select a representative frame from your trajectory to use for **pharmacophore model generation**.  
    - The pharmacophore hits will correspond to this specific configuration.
