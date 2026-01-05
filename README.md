@@ -255,7 +255,18 @@ python 07_extract_top_ligands.py -i ligand_scores1.pkl ligand_scores2.pkl ligand
 ```
 However, I recommend not mixing up results with different pharmacophore modeles with different number of features. To quickly set up simulations, refer to the ./useful/scripts/setup_simulation_protein_ligand_ff19_ff14.py script, which automates the preparation of protein–protein and protein–ligand systems.
 
-#### 06. Setup simulation using AMBER ff14 or ff19 forcefield usign Gromacs 
+#### 07. Setup simulation using AMBER ff14 or ff19 forcefield usign Gromacs 
+This script fully automates setting up of protein ligand simulation of just protein in water. 
+```bash
+python setup_simulations.py \
+  -p $PWD \
+  -f $PWD/protein.pdb \
+  -ff ff14SB \
+  -ligand_itp ./ligand_GMX.itp \
+  -ligand_gro ./ligand/ligand_GMX.gro \
+  -sim_time 10 \
+  -pdb4amber 0
+```
 
 ## References
 
