@@ -267,7 +267,7 @@ python setup_simulations.py \
   -sim_time 10 \
   -pdb4amber 0
 ```
-
+If `ff19SB` is specified, the OPC water box `opc.gro` is also required with the flag `-opc` e.g `-opc /home/user/opc.gro`. The `opc.gro` is included in this respositroy in the `./useful-scripts` directory.
 ## References
 
 If you find this useful please cite:
