@@ -186,7 +186,7 @@ We have everything we need to perform the screening in a local database. Before 
 python 04_generate_graph_screen.py \
   -j $PWD/master_pharma.json \
   -min_node 6 \
-  -max_node 12 \
+  -max_node 10 \
   -top 100 \
   -ntop_limit 50000 \
   -p_exe /usr/local/bin/pharmer.static \
@@ -195,6 +195,19 @@ python 04_generate_graph_screen.py \
   -max 10000 \
   -o $PWD/search-output \
 ```
+ | Flag          | Value                           | Description                                                       |
+| ------------- | ------------------------------- | ----------------------------------------------------------------- |
+| `-j`          | `master_pharma.json`            | Master pharmacophore from previous te                             |
+| `-min_node`   | `6`                             | Minimum number of nodes in each subpharmacophore                  |
+| `-max_node`   | `10`                            | Maximum number of nodes in each subpharmacophore                  |
+| `-top`        | `100`                           | Percentage of top-ranked pharmacophore to screen. E.g f           |
+| `-ntop_limit` | `50000`                         | Upper limit on the number of pharmacophore models to process for each sub-model     |
+| `-p_exe`      | `/usr/local/bin/pharmer.static` | Full path to the Pharmer executable                               |
+| `-df`         | `database.dat`                  | Text file listing database paths (one per line)                   |
+| `-np`         | `12`                            | Number of parallel workers (threads) used for screening           |
+| `-max`        | `10000`                         | Stop screening once total hits exceed this number                 |
+ 
+
 The contents of `databse.dat` files should look like:
 `database.dat` each line contains path to a database
   ```
