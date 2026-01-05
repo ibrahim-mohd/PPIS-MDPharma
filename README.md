@@ -224,7 +224,7 @@ If there is only one database path, one can use the `-d` flag with path to datab
     ├── n5/
     │   ├── json/
     │   └── sdf/
-    └── ...                           # Additional subpharmacophore folders (n4, n3, etc.)
+    └── ...                           # Additional subpharmacophore folders
      
 
 6. **Scoring hits by calculating buried surface area**
