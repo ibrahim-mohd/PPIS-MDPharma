@@ -167,14 +167,14 @@ python generate_pharmacophore.py \
   -acceptor_th 30.0 \
   -donor_th 30.0 \
   -ion_th 25 \
-  -o $PWD/master_pharma.json \
   -nname Cl- \
   -pname Na+ \
   -hsol_name "HW1 HW2" \
   -osol_name OW \
   -sol_resname SOL \
   -hbond_direction 1 \
-  -ignore_nowater_hbond 0  
+  -ignore_nowater_hbond 0
+  -o $PWD/master_pharma.json \
 ```
 Note that `mol.gro` is our reference frame. If `-hbond_direction` is set to 0, Hbond directions are not taken into account, one obtain more hits that is not super depedenent on the current conformation. `-ignore_nowater_hbond` if set to 1 ignores Hbond assignments for sites for which no water in Hbond geometry is found int he current frame (`mol.gro`), otherwise we use a simple translation towards pocket center for Hbond assignment. 
 
