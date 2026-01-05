@@ -218,7 +218,7 @@ If there is only one database path, one can use the `-d` flag with path to datab
     │       ├── DB1_n7_1.sdf          # SDF files are name as {database_name}_{model name}_{model rank}.sdf
     │       ├── DB4_n7_12.sdf
     │       └── DB1_n7_xxx.sdf
-    ├── n6/  # Folder for pharmacophore with sites 7 etc
+    ├── n6/                           # Folder for pharmacophore with sites 6 etc
     │   ├── json/
     │   └── sdf/
     ├── n5/
