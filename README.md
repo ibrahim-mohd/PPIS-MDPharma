@@ -142,19 +142,19 @@ Before proceeding, ensure you have the following files prepared:
 
 Plot the above features and apply thresholds to select features. It is best to keep total number of features less than 20. Note  this part is optional, it only outputs a figure so that one has an idea of what threshold to apply. If this part is skipped, you can start with default thresholds are 35, 0.2 and 25 for H-bond donor/acceptor, hydrophobic/aromatic and negative/positive features for the next step. 
   ```bash
-  python plot_features.py \
-    -p output_features.pkl \
-    -c mol.gro \
-    -s npt.tpr \
+  python 02_feature_selection_plot.py \
+    -p $PWD/combined_analysis.pkl \
+    -c $PWD/mol.gro \
+    -s $PWD/npt.tpr \
     -acceptor_th 30 \
     -donor_th 30 \
     -dG_th 0.2 \
     -ion_th 25 \
     -figsize 12 12 \
-    -o features.png
+    -o $PWD/features.png
   ```
 
-3. **Master pharmacophore model generation**
+3. **Generate master pharmacophore model**
    
  Generate pharmacophores using the above obtained thresholds:
 
@@ -164,8 +164,8 @@ python generate_pharmacophore.py \
   -c $PWD/mol.gro \
   -p $PWD/combined_analysis.pkl \
   -dG_th 0.20 \
-  -acceptor_th 35.0 \
-  -donor_th 35.0 \
+  -acceptor_th 30.0 \
+  -donor_th 30.0 \
   -ion_th 25 \
   -o $PWD/master_pharma.json \
   -nname Cl- \
@@ -174,10 +174,10 @@ python generate_pharmacophore.py \
   -osol_name OW \
   -sol_resname SOL \
   -hbond_direction 1 \
-  -ignore_nowater_hbond 0  # ignore H-bond assignment if no water is found in the current frame
+  -ignore_nowater_hbond 0  
 ```
+Note that `mol.gro` is our reference frame. If `-hbond_direction` is set to 0, Hbond directions are not taken into account, one obtain more hits that is not super depedenent on the current conformation. `-ignore_nowater_hbond` if set to 1 ignores Hbond assignments for sites for which no water in Hbond geometry is found int he current frame (`mol.gro`), otherwise we use a simple translation towards pocket center for Hbond assignment. 
 
-Note that `mol.gro` is our reference frame.
 4. **Sub-pharmacophore generation (Subsets of master pharmacophore)**
 
    Generate subsets of master pharmacophore as: first create an output directory named (let's say) ``pharma``
