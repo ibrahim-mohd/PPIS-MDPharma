@@ -210,8 +210,8 @@ If there is only one database path, one can use the `-d` flag with path to datab
     ├── screening_summary.dat         # Summary of the screening results
     ├── generate_and_screen.log       # Log file of the generation and screening process
     ├── n7/                           # Folder for pharmacophore with sites 7
-    │   ├── json/                     # JSON files of sub-pharmacophore that resulted in hits. These files are ranked by their scores.
-    │   │   ├── n7_1.json
+    │   ├── json/                     # JSON files of sub-pharmacophore that resulted in hits. 
+    │   │   ├── n7_1.json             # These files are ranked by their scores.
     │   │   ├── n7_12.json
     │   │   └── n7_xxx.json           # xxx denotes the rank for the model, lower the number higher its rank
     │   └── sdf/                      # SDF files containing the hits 
