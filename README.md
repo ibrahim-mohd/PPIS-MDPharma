@@ -79,65 +79,65 @@ Before proceeding, ensure you have the following files prepared:
    - You can also use one of the Fpocket configurations that ``00_identify_pocket_conf.py`` outputs.
    - This frame should correspond to a full MD frame with protein, water and ions etc.
 
-#### Running the commands
+### Running the commands
 
-1. **Analyze pharmacophore features**
-   
-##### Case-1: Known pocket residue IDs
-   ```bash
-   python combined_pocket_analysis.py \
-   -f $PWD/mol.xtc \
-   -s $PWD/npt.tpr \
-   -b 20000 \
-   -e 100000 \
-   -skip 1 \
-   -pocket_resids "20 24 28 36 45 47 89 120 130 134 135 192" \
-   -nname Cl- \
-   -pname Na+ \
-   -hsol_name "HW1 HW2" \
-   -osol_name OW \
-   -sol_resname SOL \
-   -cutoff 5.0 \
-   -o combined_analysis.pkl
-```
-##### Case-2: Known Protein-Protein-Ligand complex file (`protein_lig.gro`)
-   ```bash
-   python combined_pocket_analysis.py \
-   -fl $PWD/protein_lig.gro \
-   -f $PWD/mol.xtc \
-   -s $PWD/npt.tpr \
-   -b 20000 \
-   -e 100000 \
-   -skip 1 \
-   -nname Cl- \
-   -pname Na+ \
-   -hsol_name "HW1 HW2" \
-   -osol_name OW \
-   -sol_resname SOL \
-   -cutoff 5.0 \
-   -o combined_analysis.pkl
-```
-##### Case-3: Fpocket output file (`protein_out.pdb`):
-same as before but pocket ID needs to be specified (other than 0)
+#### 01. Analyze pharmacophore features   
+   - ##### Case-1: Known pocket residue IDs
+     
+     ```bash
+     python combined_pocket_analysis.py \
+     -f $PWD/mol.xtc \
+     -s $PWD/npt.tpr \
+     -b 20000 \
+     -e 100000 \
+     -skip 1 \
+     -pocket_resids "20 24 28 36 45 47 89 120 130 134 135 192" \
+     -nname Cl- \
+     -pname Na+ \
+     -hsol_name "HW1 HW2" \
+     -osol_name OW \
+     -sol_resname SOL \
+     -cutoff 5.0 \
+     -o combined_analysis.pkl  
+ - ##### Case-2: Known Protein-Protein-Ligand complex file (`protein_lig.gro`)
 
-   ```bash
-   python combined_pocket_analysis.py \
-   -fl $PWD/protein_out.pdb \
-   -pocket_id 16\
-   -f $PWD/mol.xtc \
-   -s $PWD/npt.tpr \
-   -b 20000 \
-   -e 100000 \
-   -skip 1 \
-   -nname Cl- \
-   -pname Na+ \
-   -hsol_name "HW1 HW2" \
-   -osol_name OW \
-   -sol_resname SOL \
-   -cutoff 5.0 \
-   -o combined_analysis.pkl
-```
-3. **Feature selection (Optional)**
+  ```bash
+     python combined_pocket_analysis.py \
+     -fl $PWD/protein_lig.gro \
+     -f $PWD/mol.xtc \
+     -s $PWD/npt.tpr \
+     -b 20000 \
+     -e 100000 \
+     -skip 1 \
+     -nname Cl- \
+     -pname Na+ \
+     -hsol_name "HW1 HW2" \
+     -osol_name OW \
+     -sol_resname SOL \
+     -cutoff 5.0 \
+     -o combined_analysis.pkl
+  ```
+   - ##### Case-3: Fpocket output file (`protein_out.pdb`):
+  same as before but pocket ID needs to be specified (other than 0)
+  
+     ```bash
+     python combined_pocket_analysis.py \
+     -fl $PWD/protein_out.pdb \
+     -pocket_id 16\
+     -f $PWD/mol.xtc \
+     -s $PWD/npt.tpr \
+     -b 20000 \
+     -e 100000 \
+     -skip 1 \
+     -nname Cl- \
+     -pname Na+ \
+     -hsol_name "HW1 HW2" \
+     -osol_name OW \
+     -sol_resname SOL \
+     -cutoff 5.0 \
+     -o combined_analysis.pkl
+  ```
+02. **Feature selection (Optional)**
 
    Plot the above features and apply thresholds to select features. It is best to keep total number of features less than 20. Note  this part is optional, it only outputs a figure so that one has an idea of what threshold to apply. If this part is skipped, you can start with default thresholds are 35, 0.2 and 25 for H-bond donor/acceptor, hydrophobic/aromatic and negative/positive features for the next step. 
 ```bash
