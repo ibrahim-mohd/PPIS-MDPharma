@@ -47,11 +47,13 @@ Before proceeding, ensure you have the following files prepared:
        - You need the **residue IDs of the Pocket residues**
        - Lets say the resids are `12 34 56 199 200 234 240`, then simply use the `-pocket_resids` flag and provide the resids as space seperated strings e.g `-pocket_resid "12 34 56 199 200 234 240"`. You do not need anything else.
        - Note that the code always renumbers residues form 1 to N, where N is total number of residues in the whole complex, therefore, take this into account while specifying the residues i.e firt renumber the residues in the same manner so that correct pocket IDs are identified.
-       - 
+
+       
      **Option 2 — Existing Complex**  
      - If you already have a **protein–protein–ligand complex**, you can use it directly.  
      - Any ligand is acceptable, as long as it is **docked in the pocket of interest**.  
      - Provide the `.pdb` or `.gro` file of the **entire complex** (protein–protein–ligand).
+
   
      **Option 3 — Detect Pockets Using Fpocket**  
      - If no ligand-bound structure is available, you can use **[Fpocket](https://github.com/Discngine/fpocket)** to identify potential binding pockets.  
