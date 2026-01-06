@@ -328,6 +328,11 @@ If `ff19SB` is specified, the OPC water box `opc.gro` is also required with the 
 | `-ligand_gro`         | `ligand_GMX.gro`                            | `gro` file for ligand that acpype creates           |
 | `-sim_time`        | `10`                         | Simulation time in nanoseconds                 |
 | `-pdb4amber`        | `0`                         | Where to run `pdb4amber` on the `protein.pdb`. Since the protien.pdb is already extracted from simulation frame, better to set to zero. This becomes a problem when pdb4amber creates di-sulfide bonds between the protein partners where it is not                   |
+
+## Filter during screening
+For cases with close to 20 nodes in the  master pharmacophore model, our code screens a lot of sub-pharmacophore models. One can apply certain filters on the type pharmacohore to be screened. The file that needs to be modified is: `04_generate_graph_screen.py`
+### Example: Distance cut-off
+I apply a simple distance cut-off where all the pairwise distnace between nodes (non-exclusion volume features) are cacluated and only those where the maximum pairwise distnace is above certain threshold is screened. This is useful in cases for instance, when we try to find pharmacophroe that extends to deep pockets.
 ## References
 
 If you find this useful please cite:
