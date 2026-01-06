@@ -332,7 +332,40 @@ If `ff19SB` is specified, the OPC water box `opc.gro` is also required with the 
 ## Filter during screening
 For cases with close to 20 nodes in the  master pharmacophore model, our code screens a lot of sub-pharmacophore models. One can apply certain filters on the type pharmacohore to be screened. The file that needs to be modified is: `04_generate_graph_screen.py`
 ### Example: Distance cut-off
-I apply a simple distance cut-off where all the pairwise distnace between nodes (non-exclusion volume features) are cacluated and only those where the maximum pairwise distnace is above certain threshold is screened. This is useful in cases for instance, when we try to find pharmacophroe that extends to deep pockets.
+I apply a simple distance cut-off where all the pairwise distnace between nodes (non-exclusion volume features) are cacluated and only those where the maximum pairwise distnace is above certain threshold is screened. This is useful in cases for instance, when we try to find pharmacophroe that extends to deep pockets. We simply add a function `max_pairwise_distance ()` to the `04_generate_graph_screen.py` as follows and simply call it from the `generate_graphs` function as demonstrated below. One can apply more specific and more complex filters based on the knowledge of your system
+
+```python
+def max_pairwise_distance(newG):
+    """
+    Compute the maximum Euclidean distance between all node positions in a graph.
+    """
+    positions = [
+        newG.nodes[n]['position']
+        for n in newG.nodes
+    ]
+
+    max_dist = 0.0
+    for (x1, y1, z1), (x2, y2, z2) in itertools.combinations(positions, 2):
+        d = math.sqrt(
+            (x2 - x1)**2 +
+            (y2 - y1)**2 +
+            (z2 - z1)**2
+        )
+        if d > max_dist:
+            max_dist = d
+
+    return max_dist
+
+
+def generate_graphs(G, r, top_percentage=0, ntop_limit=0, max_dist_threshold=23):
+    graphs = []
+    for nodes in itertools.combinations(G.nodes, r):
+        newG = G.subgraph(nodes).copy()
+        max_dist = max_pairwise_distance(newG)
+        if max_dist < max_dist_threshold:
+            continue
+
+```
 ## References
 
 If you find this useful please cite:
