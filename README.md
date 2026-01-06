@@ -39,7 +39,7 @@ Download our database from [10 Million Random Compounds](https://syncandshare.lr
 Before proceeding, ensure you have the following files prepared:
 
 1. **Trajectory Files**  
-   - The `.xtc` and `.tpr` files from the MD trajectory. The complex should be whole with no jumping across the box boundary before usage e.g you can use ``gmx trjconv`` with ``pbc mol`` option. You can use the `./useful-scripts/remove_jumps_xtc.py` script to achieve that, it just takes the `tpr` and `xtc` file as input and outputs a new trajectory with the periodic jumps corrected. If you do not have a trajectory, go to section [Setup protein simulation](##07.-Setup-simulation-using-AMBER-ff14-or-ff19-forcefield-usign-Gromacs). 
+   - The `.xtc` and `.tpr` files from the MD trajectory. The complex should be whole with no jumping across the box boundary before usage e.g you can use ``gmx trjconv`` with ``pbc mol`` option. You can use the `./useful-scripts/remove_jumps_xtc.py` script to achieve that, it just takes the `tpr` and `xtc` file as input and outputs a new trajectory with the periodic jumps corrected. If you do not have a trajectory, go to section [Setup protein simulation](###07.-Setup-simulation-using-AMBER-ff14-or-ff19-forcefield-usign-Gromacs). 
 2. **Pocket Identification**  
    There are three possible approaches to identify the pocket residue for analysis:
 
