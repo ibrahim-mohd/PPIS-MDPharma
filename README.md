@@ -297,7 +297,7 @@ final-results-n6
 │       └── protein.pdb
 └── ...
 ```
-The 'get_ligand_itp.sh' is to obtain the ligand itp files and partial charges.
+The 'get_ligand_itp.sh' is to obtain the ligand itp files and partial charges. In each sub-pharmacophore folder for a given number of node, the ligands are ranked by the BSA score.
 ```bash
 python 07_extract_top_ligands.py -i ligand_scores1.pkl ligand_scores2.pkl ligand_scores3.pkl -topN 40 -Ngraph 20 -odir $PWD/final-results
 ```
