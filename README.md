@@ -221,7 +221,7 @@ If there is only one database path, one can use the `-d` flag with path to datab
     search-output/
     ├── screening_summary.dat         # Summary of the screening results
     ├── generate_and_screen.log       # Log file of the generation and screening process
-    ├── n7/                           # Folder for pharmacophore with sites 7
+    ├── n7/                           # directory for pharmacophore with sites 7
     │   ├── json/                     # JSON files of sub-pharmacophore that resulted in hits. 
     │   │   ├── n7_1.json             # These files are ranked by their scores.
     │   │   ├── n7_12.json
@@ -230,13 +230,13 @@ If there is only one database path, one can use the `-d` flag with path to datab
     │       ├── DB1_n7_1.sdf          # SDF files are name as {database_name}_{model name}_{model rank}.sdf
     │       ├── DB4_n7_12.sdf
     │       └── DB1_n7_xxx.sdf
-    ├── n6/                           # Folder for pharmacophore with sites 6 etc
+    ├── n6/                           # directory for pharmacophore with sites 6 etc
     │   ├── json/
     │   └── sdf/
     ├── n5/
     │   ├── json/
     │   └── sdf/
-    └── ...                           # Additional subpharmacophore folders
+    └── ...                           # Additional subpharmacophore directorys
 
      
 #### 05. Scoring hits by calculating buried surface area
@@ -249,7 +249,7 @@ python 05_score_hits.py \
   -c $PWD/mol.gro \
   -o $PWD/ligand_score_n6.pkl
 ```
-For different pharmacophore model e.g n7, n6 or n5, one creates seperate scored `.pkl` files. The code will go through all the ``.sdf`` file in the folder. The ``TPR`` and ``GRO`` files must also be provided with the ``GRO`` file being the MD frame for which the pharmacophores hits were obtained.
+For different pharmacophore model e.g n7, n6 or n5, one creates seperate scored `.pkl` files. The code will go through all the ``.sdf`` file in the directory. The ``TPR`` and ``GRO`` files must also be provided with the ``GRO`` file being the MD frame for which the pharmacophores hits were obtained.
 
 #### 06. Extract top hits across all models and prepare for simulation 
 ```bash
@@ -300,14 +300,14 @@ final-results-n6
 │       └── protein.pdb
 └── ...
 ```
-The 'get_ligand_itp.sh' is to obtain the ligand itp files and partial charges. In each sub-pharmacophore folder for a given number of node, the ligands are ranked by the BSA score.
+The 'get_ligand_itp.sh' is to obtain the ligand itp files and partial charges. In each sub-pharmacophore directory for a given number of node, the ligands are ranked by the BSA score.
 ```bash
 python 07_extract_top_ligands.py -i ligand_scores1.pkl ligand_scores2.pkl ligand_scores3.pkl -topN 40 -Ngraph 20 -odir $PWD/final-results
 ```
 However, I recommend not mixing up results with different pharmacophore modeles with different number of features. To quickly set up simulations, refer to the ./useful/scripts/setup_simulation_protein_ligand_ff19_ff14.py script, which automates the preparation of protein–protein and protein–ligand systems.
 
 #### 07. Setup simulation using AMBER ff14 or ff19 forcefield usign Gromacs 
-This script fully automates setting up of protein ligand simulation or just protein in water. After running `get_ligand_itp.sh` which creates ligand itp and gro files, go to any of the `ligand*` folders from above and run the following command to setup simulation.
+This script fully automates setting up of protein ligand simulation or just protein in water. After running `get_ligand_itp.sh` which creates ligand itp and gro files, go to any of the `ligand*` directorys from above and run the following command to setup simulation.
 ```bash
 python 07_setup_simulation_protein_ligand_ff19_ff14.py \
   -p $PWD \
