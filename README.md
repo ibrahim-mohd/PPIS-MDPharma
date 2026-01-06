@@ -320,9 +320,9 @@ python 07_setup_simulation_protein_ligand_ff19_ff14.py \
 ```
 If `ff19SB` is specified, the OPC water box `opc.gro` is also required with the flag `-opc` e.g `-opc /home/user/opc.gro`. The `opc.gro` is included in this respositroy in the `./useful-scripts` directory.
  | Flag          | Value                           | Description                                                       |
-| ------------- | ------------------------------- | ----------------------------------------------------------------- |
+| ----------------- | ------------------------------- | ----------------------------------------------------------------- |
 | `-p`        | `$PWD`                           |Is the directory all files and simulation setups is created        |
-| `-f` | `protein.pdb`                         | The protein complex structure  an output of previous step   |
+| `-f`         | `protein.pdb`                         | The protein complex structure  an output of previous step   |
 | `-ff`      | `ff14SB` |ff14SB or ff19SB                               |
 | `-ligand_itp`         | `ligand_GMX.tip`                  | `itp` file for the ligand obtained via acpype or antechamber                  |
 | `-ligand_gro`         | `ligand_GMX.gro`                            | `gro` file for ligand that acpype creates           |
