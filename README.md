@@ -265,6 +265,7 @@ or if you have multiple score files from different pharmacophore models:
 | `-skey`      | `bsa_harm` | Use harmonic mean of BSA as ranking metric. Other option is `bsa_ab` i.e total BSA                          |
   
 The output of the above for a given node size looks as follows:
+```bash
 final-results-n6
 ├── 20/
 │   ├── ligand1/
@@ -295,6 +296,7 @@ final-results-n6
 │       ├── ligand.mol2
 │       └── protein.pdb
 └── ...
+```
 The 'get_ligand_itp.sh' is to obtain the ligand itp files and partial charges.
 ```bash
 python 07_extract_top_ligands.py -i ligand_scores1.pkl ligand_scores2.pkl ligand_scores3.pkl -topN 40 -Ngraph 20 -odir $PWD/final-results
