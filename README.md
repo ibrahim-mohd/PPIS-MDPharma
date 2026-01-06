@@ -366,6 +366,9 @@ def generate_graphs(G, r, top_percentage=0, ntop_limit=0, max_dist_threshold=23)
             continue
 
 ```
+
+## Limitation
+We first create all graphs (sub-pharmacophore) and then screen. For master pharmacophores with more than 20 nodes, as we consider lower subsets the possible comibination becomes very large and puts lots of strain on the RAM.
 ## References
 
 If you find this useful please cite:
