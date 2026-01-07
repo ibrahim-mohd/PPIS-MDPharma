@@ -18,9 +18,9 @@ def parse_args():
     
     ##################### Thresholds
     
-    parser.add_argument('-acceptor_th', dest='acceptor_threshold', type=float, default=30, help='acceptor threshold')
-    parser.add_argument('-donor_th', dest='donor_threshold', type=float, default=30, help='acceptor threshold')
-    parser.add_argument('-dG_th', dest='dG_threshold', type=float, default=0.2, help='ΔG threshold,')
+    parser.add_argument('-acceptor_th', dest='acceptor_threshold', type=float, default=40, help='acceptor threshold')
+    parser.add_argument('-donor_th', dest='donor_threshold', type=float, default=40, help='acceptor threshold')
+    parser.add_argument('-dG_th', dest='dG_threshold', type=float, default=0.4, help='ΔG threshold,')
     parser.add_argument('-ion_th', dest='ion_threshold', type=float, default=25, help='difference between number of cations and anions')
 
     # Figure options
@@ -137,48 +137,117 @@ def main():
     ax3.legend(fontsize=12)
     ax3.set_title ("Acceptors pharmacophore site (i.e donors from the protein)")
 
+
     # =====================================================
     # Panel 4: Ion Sites
     # =====================================================
+
     Cat1, Cat2, Cat_name1, Cat_name2 = [], [], [], []
     An1, An2, An_name1, An_name2 = [], [], [], []
-
-    for (key_cat, val_cat), (key_an, val_an) in zip(data['ions']['cation'].items(),
-                                                    data['ions']['anion'].items()):
-        if val_cat['count'] < 0.1 and val_an['count'] < 0.1:
+    
+    for (key_cat, val_cat), (key_an, val_an) in zip(
+            data['ions']['cation'].items(),
+            data['ions']['anion'].items()):
+    
+        if val_cat['count'] == 0.0 and val_an['count'] == 0:
             continue
-
+    
         if int(key_cat) in Index_frag1:
-            Cat1.append(val_cat['count']); Cat_name1.append(val_cat['name'])
-            An1.append(val_an['count']);   An_name1.append(val_an['name'])
+            Cat1.append(val_cat['count'])
+            Cat_name1.append(val_cat['name'])
+            An1.append(val_an['count'])
+            An_name1.append(val_an['name'])
         else:
-            Cat2.append(val_cat['count']); Cat_name2.append(val_cat['name'])
-            An2.append(val_an['count']);   An_name2.append(val_an['name'])
-
+            Cat2.append(val_cat['count'])
+            Cat_name2.append(val_cat['name'])
+            An2.append(val_an['count'])
+            An_name2.append(val_an['name'])
+    
+    # -------------------- X positions (SAFE) --------------------
     x1 = np.arange(len(Cat1))
-    x2 = np.arange(x1[-1] + 1, len(Cat2) + len(x1))
-
-    ax4.bar(x1, Cat1, width=0.3, label="Na$^+$, Chain A", edgecolor="k", fc="tab:blue")
-    ax4.bar(x1 + 0.33, An1, width=0.3, label="Cl$^-$, Chain A", edgecolor="k", fc=(0, 0, 1, 0.5))
-    ax4.bar(x2, Cat2, width=0.3, label="Na$^+$, Chain B", edgecolor="k", fc="tab:red")
-    ax4.bar(x2 + 0.33, An2, width=0.3, label="Cl$^-$, Chain B", edgecolor="k", fc=(1, 0, 0, 0.5))
-
-    ax4.set_xticks(np.concatenate([x1, x2]) + 0.15, An_name1 + An_name2, rotation=90)
-    ax4.set_ylabel("Ion bound frame %age", fontsize=16)
-    ax4.set_title ("Positive/negative ion binding sites")
-    # -------------------- Threshold -------------------------
-    index_1 = np.where ( np.abs (np.array (Cat1) - np.array (An1)) >= ion_threshold) [0]
-    index_2 = np.where ( np.abs (np.array (Cat2) - np.array (An2)) >= ion_threshold) [0]
-
-    if np.size (index_1):
+    x2 = np.arange(len(Cat2)) + (x1[-1] + 1 if len(x1) > 0 else 0)
+    
+    # -------------------- Bars (ONLY IF DATA EXISTS) --------------------
+    
+    
+    if len(Cat1) > 0:
+        ax4.bar(x1, Cat1, width=0.3, label="Na$^+$", edgecolor="k", fc="tab:blue")
+        ax4.bar(x1 + 0.33, An1, width=0.3, label="Cl$^-$", edgecolor="k", fc="tab:orange")
+    
+    if len(Cat2) > 0:
+        if len (Cat1)==0:
+            cl_label ="Cl$^-$"
+            na_label = "Na$^+$"
+        else:
+            cl_label, na_label=None, None
+        ax4.bar(x2, Cat2, width=0.3, label=na_label, edgecolor="k", fc="tab:blue")
+        ax4.bar(x2 + 0.33, An2, width=0.3,label=cl_label, edgecolor="k", fc="tab:orange")
+    
+    
+    # -------------------- X ticks (SAFE) --------------------
+    all_x = np.concatenate([x1, x2]) if (len(x1) + len(x2)) > 0 else []
+    all_names = An_name1 + An_name2
+    
+    if len(all_x) > 0:
+        ax4.set_xticks(all_x + 0.15, all_names, rotation=90)
+    
+    # -------------------- Threshold highlighting (SAFE) --------------------
+    if len(Cat1) > 0 and len(An1) > 0:
+        index_1 = np.where(np.abs(np.array(Cat1) - np.array(An1)) >= ion_threshold)[0]
         for i in index_1:
-            ax4.bar(x1[i]+0.12, Cat1[i], width=0.6, edgecolor="g", lw=2, fc=(1,1,1,0))
-           # ax4.bar(x1[i], An1[i]+0.33, width=0.3, edgecolor="g", lw=2, fc=(1,1,1,0))
-
-    if np.size (index_2):
+            ax4.bar(x1[i] + 0.12, max(An1[i], Cat1[i]), width=0.6,
+                    edgecolor="g", lw=2, fc=(1, 1, 1, 0))
+    
+    if len(Cat2) > 0 and len(An2) > 0:
+        index_2 = np.where(np.abs(np.array(Cat2) - np.array(An2)) >= ion_threshold)[0]
         for i in index_2:
-            ax4.bar(x2[i]+0.12, Cat2[i], width=0.6, edgecolor="g", lw=2, fc=(1,1,1,0))
-           # ax4.bar(x2[i], An2[i]+0.33, width=0.3, edgecolor="g", lw=2, fc=(1,1,1,0))
+           # print (Cat2[i])
+            ax4.bar(x2[i] + 0.12, max(An2[i], Cat2[i]), width=0.6,
+                    edgecolor="g", lw=2, fc=(1, 1, 1, 0))
+    
+    # -------------------- Axis formatting --------------------
+    for ax in [ax1, ax2, ax3, ax4]:
+        ax.tick_params(axis='x', which='major', labelsize=10)
+        ax.tick_params(axis='y', which='major', labelsize=11)
+    
+    # -------------------- Background spans (SAFE) --------------------
+    if len(An1) > 0:
+        ax4.axvspan(-0.1, len(An1)-0.3, color='blue', alpha=0.3, zorder=0)
+    
+    if len(An2) > 0:
+        start = len(An1) -0.3
+        ax4.axvspan(start, start + len(An2), color='red', alpha=0.3, zorder=0)
+    
+    # -------------------- Fix bar visual width --------------------
+    total_bars = len(Cat1) + len(Cat2)
+    
+    if total_bars > 0:
+        left = -0.5
+        right = total_bars - 0.2
+        ax4.set_xlim(left, right)
+    
+    
+    # -------------------- Labels & annotations --------------------
+    ax1.set_ylabel(r"$\mathrm{\Delta G_{sol} ~[kJ/mol]}$", fontsize=12)
+    ax2.set_ylabel("H-bond donor", fontsize=12)
+    ax3.set_ylabel("H-bond acceptor", fontsize=12)
+    ax4.set_ylabel("Ion bound frames (%)", fontsize=12)
+    
+    ax1.annotate("(A)", xy=(0., 1.03), xycoords="axes fraction", fontsize=14)
+    ax2.annotate("(B)", xy=(0., 1.03), xycoords="axes fraction", fontsize=14)
+    ax3.annotate("(C)", xy=(0., 1.03), xycoords="axes fraction", fontsize=14)
+    ax4.annotate("(D)", xy=(0., 1.03), xycoords="axes fraction", fontsize=14)
+    
+    if len(Cat1) > 0:
+        ax4.annotate("Chain A", xy=(0.08, 0.6),
+                     xycoords="axes fraction", fontsize=12, color="tab:blue")
+    if len(Cat2) > 0:
+        ax4.annotate("Chain B", xy=(0.7, 0.6),
+                     xycoords="axes fraction", fontsize=12, color="tab:red")
+    
+    ax4.legend()
+  #  ax1.annotate (f"{protein}", fontweight="bold", fontsize=20, color="gray",xycoords="axes fraction", xy=(1.01,1.2))     
+
                 
     # ---------------- Save or Show ---------------- #
     if out_file:
