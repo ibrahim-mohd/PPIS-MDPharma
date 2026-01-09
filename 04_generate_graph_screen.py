@@ -362,7 +362,7 @@ def write_summary(summary, total_time, output_dir, database_paths):
         f.write("=" * 130 + "\n")
         f.write(f"Databases used: {[db.name for db in database_paths]}\n")
         f.write(header_fmt.format("Pharmacophore", "Total graphs", "Total hits",
-                                  "Total Wall Time(s)", "Avg. Pharmer time (s)", "%age of Graphs Screened"))
+                                  "Total Wall Time(s)", "Avg. Pharmer time (s)", "%age of Graphs with Hits"))
         f.write("-" * 130 + "\n")
 
         total_hits = 0
