@@ -304,12 +304,12 @@ def main():
     acceptor_threshold = args.donor_threshold
     donor_threshold = args.acceptor_threshold
     threshold_ion_difference = args.threshold_ion_difference
-
-    nmax_hydrophobic = 10
-    nmax_donor = 10
-    nmax_acceptor = 10
-    nmax_cation = 10
-    nmax_anion = 10
+    # Hardcoded maximum feature of each type
+    nmax_hydrophobic = 12
+    nmax_donor = 12
+    nmax_acceptor = 12
+    nmax_cation = 12
+    nmax_anion = 12
 
     possible_hydrophobic_sites = [key for key, val in dgsol_sasa.items() if val['dG'][0] > G_solv_threshold]
     if len(possible_hydrophobic_sites) > nmax_hydrophobic:
