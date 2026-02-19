@@ -269,7 +269,7 @@ tc_grps                 = Sol_ions Protein_lig
 tau_t                   = 1.0  1.0
 ref_t                   = 300 300
 ;
-pcoupl                   = berendsen
+pcoupl                   = C-rescale
 pcoupltype               = isotropic
 tau_p                    = 5.0
 compressibility          = 4.5e-05 0
