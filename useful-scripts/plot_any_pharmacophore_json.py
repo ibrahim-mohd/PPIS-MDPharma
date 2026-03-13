@@ -71,11 +71,7 @@ for sites in pharmacophore_data ["points"]:
                     size = sites['size'],
                     requirement = sites['requirement'],
                     enabled=sites['enabled'],
-                    svector=sites['svector'],
                     vector=sites['vector'],
-                    minsize = sites ['minsize'],
-                    maxsize=sites ['maxsize'],
-                    vector_on= sites['vector_on'],
                     color=node_colors [sites ['name']], 
                     score=sites ['score'],
                     chainID=sites['chainID'])
