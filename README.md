@@ -1,7 +1,7 @@
 ## Introduction
 This repository provides codes and scripts to obtain protein-protein interaction stabilizers as described in our paper "*Protein-Protein Interaction Stabilizers from MD Simulation-derived Pharmacophores, Mohd Ibrahim and Martin Zacharias*". In nut-shell, we generate pharmacophore models from MD simulations and search for corresponding ligands that satisfy the pharmacophores in a local data. The scripts here automates the whole procedure.
 
-If you are intrested in finding **Binders** to single protein chains using this method, use the binder version avialable at **[ProteinBinder-MDPharma](https://github.com/ibrahim-mohd/PPIS-MDPharma)**
+If you are intrested in finding **Binders** to single protein chain using this method, use the binder version avialable at **[ProteinBinder-MDPharma](https://github.com/ibrahim-mohd/PPIS-MDPharma)**
 
 **Note:**  In all the following scripts always use full path for input files. For instance, if the `npt.tpr` file is in the current directory use it as `$PWD/npt.tpr`
 
