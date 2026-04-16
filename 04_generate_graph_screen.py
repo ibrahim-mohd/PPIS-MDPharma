@@ -149,6 +149,7 @@ def generate_graphs(G, r, top_percentage=0, ntop_limit=0):
         count_A = sum(1 for _, a in newG.nodes(data=True) if a.get("chainID") == "A")
         count_B = sum(1 for _, a in newG.nodes(data=True) if a.get("chainID") == "B")
         sym = min(count_A, count_B) / max(count_A, count_B) if max(count_A, count_B) > 0 else 0
+        if sym == 0: continue # This removes cases where the feature contribution from one partner is zero    
         total_score = sum(a["score"]["normed_score"] for _, a in newG.nodes(data=True))
         graphs.append([newG, dict(min_spanning_tree_dist=mst_dist, score=total_score,
                                   symmetry=sym, combined_score=sym * total_score)])
