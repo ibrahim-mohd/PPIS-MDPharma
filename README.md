@@ -1,5 +1,5 @@
 ## Introduction
-This repository provides codes and scripts to obtain protein-protein interaction stabilizers as described in our paper "*Protein-Protein Interaction Stabilizers from MD Simulation-derived Pharmacophores, Mohd Ibrahim and Martin Zacharias*". In nut-shell, we generate pharmacophore models from MD simulations and search for corresponding ligands that satisfy the pharmacophores in a local data. The scripts here automates the whole procedure.
+This repository provides codes and scripts to obtain protein-protein interaction stabilizers as described in our paper  **[Protein–Protein Interaction Stabilizers from MD Simulation-Derived Pharmacophores](https://doi.org/10.1021/acs.jcim.6c00290)**. In nut-shell, we generate pharmacophore models from MD simulations and search for corresponding ligands that satisfy the pharmacophores in a local data. The scripts here automates the whole procedure.
 
 If you are intrested in finding **Binders** to single protein chain using this method, use the binder version available at **[ProteinBinder-MDPharma](https://github.com/ibrahim-mohd/ProteinBinder-MDPharma)**
 
@@ -373,4 +373,4 @@ We first create all graphs (sub-pharmacophore) and then screen. For master pharm
 ## References
 
 If you find this useful please cite:
-*Protein-Protein Interaction Stabilizers from MD Simulation-derived Pharmacophores*, Mohd Ibrahim and Martin Zacharias (In preparation)
+*Protein–Protein Interaction Stabilizers from MD Simulation-Derived Pharmacophores*, Mohd Ibrahim and Martin Zacharias, **[J. Chem. Inf. Model. 2026](https://doi.org/10.1021/acs.jcim.6c00290)**
