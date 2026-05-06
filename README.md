@@ -372,5 +372,5 @@ def generate_graphs(G, r, top_percentage=0, ntop_limit=0, max_dist_threshold=23)
 We first create all graphs (sub-pharmacophore) and then screen. For master pharmacophores with more than 20 nodes, as we consider lower subsets the possible comibination becomes very large and puts lot of strain on the RAM.
 ## References
 
-If you find this useful please cite:
+If you find this useful for your work please cite:
 *Protein–Protein Interaction Stabilizers from MD Simulation-Derived Pharmacophores*, Mohd Ibrahim and Martin Zacharias, **[J. Chem. Inf. Model. 2026](https://doi.org/10.1021/acs.jcim.6c00290)**
