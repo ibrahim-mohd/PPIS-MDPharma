@@ -1,8 +1,10 @@
+# Written by: Mohd Ibrahim
+# Technical University of Munich
 import subprocess
 import parmed as pmd
 import shutil
 import os
-import numpy as np   
+import numpy as np  # Import numpy for array operations
 import argparse
 import MDAnalysis as mda
 
@@ -263,13 +265,14 @@ rcoulomb                = 1.2
 vdwtype                 = Cut-off
 vdw-modifier            = Potential-shift
 rvdw                    = 1.2
+DispCorr                = EnerPres
 ;
 tcoupl                  = v-rescale
 tc_grps                 = Sol_ions Protein_lig
 tau_t                   = 1.0  1.0
 ref_t                   = 300 300
 ;
-pcoupl                   = C-rescale
+pcoupl                   = berendsen
 pcoupltype               = isotropic
 tau_p                    = 5.0
 compressibility          = 4.5e-05 0
@@ -311,6 +314,7 @@ rcoulomb                = 1.2
 vdwtype                 = Cut-off
 vdw-modifier            = Potential-shift
 rvdw                    = 1.2
+DispCorr                = EnerPres
 ;
 tcoupl                  = v-rescale
 tc_grps                 = Sol_ions Protein_lig
@@ -348,9 +352,9 @@ nstlog                  = 10000
 nstxout                 = 0
 nstvout                 = 0
 nstfout                 = 0
-nstxout-compressed      = 10000  ;every 100 ps
-nstcalcenergy           = 10000
-nstenergy               = 10000
+nstxout-compressed      = 50000  ;every 100 ps
+nstcalcenergy           = 50000
+nstenergy               = 50000
 ;
 cutoff-scheme           = Verlet
 nstlist                 = 20
@@ -360,6 +364,7 @@ rcoulomb                = 1.2
 vdwtype                 = Cut-off
 vdw-modifier            = Potential-shift
 rvdw                    = 1.2
+DispCorr                = EnerPres
 ;
 tcoupl                  = v-rescale
 tc_grps                 = Sol_ions Protein_lig
@@ -431,11 +436,9 @@ def partition_topol_file(input_file = "topol.top", out_path = "./"):
 
     return topol_lines, section_count
      
-
+###
 def cmap_correction (amber):
 
-# This function is adapted from  https://github.com/ParmEd/ParmEd/issues/1292 from the user csy0000.
-# I have mannually checked its accuracy by comparing with Charmm-gui generated files and found to be identical
     #amber = pmd.load_file(options.prmtop,options.inpcrd)
     
         # Cmap correction
@@ -675,7 +678,7 @@ subprocess.run (command, shell=True, executable="/bin/bash")
 
 ## add ion
 os.makedirs(path0 + "/em/", exist_ok=True)  
-command = f"echo SOL | gmx genion -s {path0}/initial/ion.tpr -p {path0}/topol.top -nname Cl- -pname Na+ -nn {N_ions} -neutral -o {path0}/em/ion.gro"
+command = f"echo SOL | gmx genion -s {path0}/initial/ion.tpr -p {path0}/topol.top -nname Cl- -pname Na+ -np {N_ions} -nn {N_ions} -neutral -o {path0}/em/ion.gro"
 subprocess.run (command, shell=True, executable="/bin/bash")
 
 # energy minimize
